@@ -21,7 +21,7 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
-import Features from "./Features";
+// import Features from "./Features";
 import { useToast } from "@/components/ui/use-toast";
 import BackgroundThumbnail from "./BackgroundThumbnaill";
 import NeonThumbnail from "./NeonThumbnail";
@@ -119,7 +119,7 @@ export default function ReadMeGen() {
               placeholder=""
             />
           </div>
-          <Features />
+          {/* <Features />a */}
           <Card>
             <CardHeader>
               <CardTitle>Preview</CardTitle>

@@ -1,12 +1,13 @@
-import React, { useRef } from "react";
-import Image from "next/image";
-import { Inter } from "next/font/google";
-import imageLight from "@/public/light.png";
-import imageDark from "@/public/dark.png";
-import { useThumbnail } from "@/context/thumbnail-context";
-import SplitTitle from "./SplitTitle";
+import { useThumbnail } from '@/context/thumbnail-context';
+import { getIconComponent } from '@/lib/icons';
+import imageDark from '@/public/dark.png';
+import imageLight from '@/public/light.png';
+import { Inter } from 'next/font/google';
+import Image from 'next/image';
+import React from 'react';
+import SplitTitle from './SplitTitle';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 const year = new Date().getFullYear();
 
 interface BackgroundThumbnailProps {
@@ -16,7 +17,7 @@ interface BackgroundThumbnailProps {
 export default function BackgroundThumbnail({
   elementRef,
 }: BackgroundThumbnailProps) {
-  const { thumbnail} = useThumbnail();
+  const { thumbnail } = useThumbnail();
 
   return (
     <div
@@ -26,17 +27,17 @@ export default function BackgroundThumbnail({
       <div
         ref={elementRef}
         className={`${inter.className} aspect-video relative h-full w-full ${
-          thumbnail.darkMode ? "bg-black text-white" : "bg-white text-black"
+          thumbnail.darkMode ? 'bg-black text-white' : 'bg-white text-black'
         } flex flex-col justify-between p-5 font-semibold overflow-hidden`}
       >
         <div
           className={`w-full h-full absolute bottom-0 left-0 z-10 bg-gradient-to-t ${
-            thumbnail.darkMode ? "from-black " : "from-white"
+            thumbnail.darkMode ? 'from-black ' : 'from-white'
           } to-transparent`}
         ></div>
         <div
           className={`w-full h-1/3 absolute top-0 left-0 z-10 bg-gradient-to-b ${
-            thumbnail.darkMode ? "from-black" : "from-white"
+            thumbnail.darkMode ? 'from-black' : 'from-white'
           } to-transparent`}
         ></div>
         <div
@@ -48,7 +49,10 @@ export default function BackgroundThumbnail({
         <Image
           width={1280}
           height={720}
-          src={thumbnail.selectedImage ?? (thumbnail.darkMode ? imageDark : imageLight)}
+          src={
+            thumbnail.selectedImage ??
+            (thumbnail.darkMode ? imageDark : imageLight)
+          }
           alt={`${thumbnail.title}-${year}`}
           className="absolute w-full h-full top-0 left-0 object-cover rounded-md"
         />
@@ -61,20 +65,20 @@ export default function BackgroundThumbnail({
         </div>
         <div className="text-6xl z-20 flex flex-col gap-3">
           <p>
-          <SplitTitle title={thumbnail.title}/>
+            <SplitTitle title={thumbnail.title} />
           </p>
 
           <div className="flex gap-2 flex-wrap">
             {thumbnail.features.map((feature, index) => {
-              return feature.checked ? (
-                <Image
-                  key={index}
-                  width={30}
-                  height={30}
-                  src={`/features/${feature.logoDark}`}
-                  alt={feature.name}
-                  className="object-contain"
-                />
+              if (!feature.checked) return null;
+              const IconComponent = getIconComponent(feature.iconId);
+              const iconColor = thumbnail.useDefaultIconColor
+                ? 'default'
+                : thumbnail.darkMode
+                ? '#fff'
+                : '#000';
+              return IconComponent ? (
+                <IconComponent key={index} size={30} color={iconColor} />
               ) : null;
             })}
           </div>
