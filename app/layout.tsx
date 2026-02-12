@@ -1,17 +1,45 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import ThumbnailContextProvider from "@/context/thumbnail-context";
-import { Toaster } from "@/components/ui/toaster";
-import ThemeContextProvider from "@/context/theme-context";
-import ThemeSwitch from "@/components/theme-switch";
-import ReadmeContextProvider from "@/context/readme-context";
+import Header from '@/components/Header';
+import { TooltipProvider } from '@/components/ui/tooltip';
+import { ThemeProvider } from '@/provider/theme-provider';
+import type { Metadata } from 'next';
+import { Geist, Geist_Mono, Instrument_Serif } from 'next/font/google';
+import localFont from 'next/font/local';
+import './globals.css';
 
-const inter = Inter({ subsets: ["latin"] });
+const geistSans = Geist({
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
+});
+
+const geistMono = Geist_Mono({
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
+});
+
+const instrument = Instrument_Serif({
+  subsets: ['latin'],
+  weight: '400',
+  style: ['normal', 'italic'],
+  variable: '--font-instrument',
+});
+
+const departureMono = localFont({
+  src: '../public/fonts/DepartureMono-Regular.woff2',
+  variable: '--font-departure',
+});
 
 export const metadata: Metadata = {
-  title: "Readme Generator",
-  description: "Generate your custome Readme file for your GitHub repository",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'
+  ),
+  title: 'GitGlow - Thumbnail generator',
+  description:
+    'Generate custom GitHub-style thumbnails for your projects with GitGlow.',
+  keywords: ['thumbnail generator', 'github', 'thumbnail', 'gitglow'],
+  authors: [{ name: 'Lény Sauzet', url: 'https://lenysauzet.com' }],
+  creator: 'Lény Sauzet',
+  publisher: 'Lény Sauzet',
+  category: 'technology',
 };
 
 export default function RootLayout({
@@ -20,18 +48,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${inter.className} relative min-h-screen`}>
-        <div className="fixed z-50 top-0 w-full h-16 bg-gradient-to-b from-background to-transparent pointer-events-none "></div>
-        <ThemeContextProvider>
-          <ThumbnailContextProvider>
-            <ReadmeContextProvider>
-            {children}
-            </ReadmeContextProvider>
-            <ThemeSwitch />
-          </ThumbnailContextProvider>
-        </ThemeContextProvider>
-        <Toaster />
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} ${instrument.variable} ${departureMono.variable} antialiased`}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <TooltipProvider>
+            <div className="h-screen overflow-hidden p-10 flex flex-col">
+              <Header />
+              <div className="flex-1 min-h-0 overflow-hidden flex flex-col">
+                {children}
+              </div>
+            </div>
+          </TooltipProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
