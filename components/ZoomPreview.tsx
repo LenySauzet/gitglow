@@ -1,18 +1,18 @@
+import { useCover } from '@/features/cover/hook/useCover';
 import NumberFlow from '@number-flow/react';
 import { ZoomIn, ZoomOut } from 'lucide-react';
-import { useState } from 'react';
 import { Button } from './ui/button';
 import { ButtonGroup, ButtonGroupText } from './ui/button-group';
 
 const ZoomPreview = () => {
-  const [zoom, setZoom] = useState(100);
+  const { zoom, setZoom } = useCover();
 
   const handleZoomIn = () => {
-    setZoom((prevZoom) => Math.min(prevZoom + 10, 150));
+    setZoom(Math.min(zoom + 10, 150));
   };
 
   const handleZoomOut = () => {
-    setZoom((prevZoom) => Math.max(prevZoom - 10, 50));
+    setZoom(Math.max(zoom - 10, 50));
   };
 
   return (

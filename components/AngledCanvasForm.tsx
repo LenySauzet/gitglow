@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button';
 import {
   Field,
   FieldDescription,
@@ -24,12 +23,6 @@ const AngledCanvasForm = () => {
         <FieldDescription>
           We&apos;ll send updates to this address.
         </FieldDescription>
-      </Field>
-      <Field orientation="horizontal">
-        <Button type="reset" variant="outline">
-          Reset
-        </Button>
-        <Button type="submit">Submit</Button>
       </Field>
     </FieldGroup>
   );
