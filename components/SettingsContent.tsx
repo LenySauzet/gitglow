@@ -1,4 +1,4 @@
-import AngledCanvasForm from './AngledCanvasForm';
+import ExampleForm from './ExampleForm';
 import Templates from './templates';
 
 const SettingsContent = () => {
@@ -12,7 +12,7 @@ const SettingsContent = () => {
         <p className="text-sm text-muted-foreground/50 uppercase shrink-0 font-departure">
           Form
         </p>
-        <AngledCanvasForm />
+        <ExampleForm />
       </div>
     </aside>
   );

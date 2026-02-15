@@ -17,13 +17,13 @@ const ZoomPreview = () => {
 
   return (
     <ButtonGroup>
-      <Button size="icon" variant="outline" onClick={handleZoomOut}>
+      <Button size="icon" variant="outline" onClick={handleZoomOut} className='cursor-zoom-out'>
         <ZoomOut size={16} />
       </Button>
       <ButtonGroupText>
         <NumberFlow value={zoom} suffix="%" />
       </ButtonGroupText>
-      <Button size="icon" variant="outline" onClick={handleZoomIn}>
+      <Button size="icon" variant="outline" onClick={handleZoomIn} className='cursor-zoom-in'>
         <ZoomIn size={16} />
       </Button>
     </ButtonGroup>

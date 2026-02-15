@@ -6,7 +6,7 @@ import {
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 
-const AngledCanvasForm = () => {
+const ExampleForm = () => {
   return (
     <FieldGroup>
       <Field>
@@ -28,4 +28,4 @@ const AngledCanvasForm = () => {
   );
 };
 
-export default AngledCanvasForm;
+export default ExampleForm;
