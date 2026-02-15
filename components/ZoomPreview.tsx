@@ -1,4 +1,4 @@
-import { useCover } from '@/features/cover/hook/useCover';
+import { useCover } from '@/hooks/useCover';
 import NumberFlow from '@number-flow/react';
 import { ZoomIn, ZoomOut } from 'lucide-react';
 import { Button } from './ui/button';

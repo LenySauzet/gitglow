@@ -61,7 +61,7 @@ export default function RootLayout({
           <TooltipProvider>
             <div className="h-screen overflow-hidden p-10 flex flex-col">
               <Header />
-              <div className="flex-1 min-h-0 overflow-hidden flex flex-col">
+              <div className="flex-1  overflow-hidden flex flex-col">
                 {children}
               </div>
             </div>

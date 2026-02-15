@@ -1,4 +1,4 @@
-import { useCover } from '@/features/cover/hook/useCover';
+import { useCover } from '@/hooks/useCover';
 import { RefreshCcw } from 'lucide-react';
 import { Button } from './ui/button';
 

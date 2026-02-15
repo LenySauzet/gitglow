@@ -1,12 +1,18 @@
-import { useCover } from '@/features/cover/hook/useCover';
+import {
+  Empty,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from '@/components/ui/empty';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { useCover } from '@/hooks/useCover';
+import { cn } from '@/lib/utils';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { Download } from 'lucide-react';
+import { Download, SquircleDashed } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import Reset from './Reset';
 import { Button } from './ui/button';
 import ZoomPreview from './ZoomPreview';
-
 const TILT_SPRING = { damping: 45, stiffness: 100, mass: 1 };
 const HOVER_SPRING = { damping: 35, stiffness: 300, mass: 0.3 };
 const ZOOM_SPRING = { damping: 40, stiffness: 200, mass: 0.5 };
@@ -16,7 +22,7 @@ const TILT = 7;
 
 const Preview = () => {
   const isMobile = useIsMobile();
-  const { zoom } = useCover();
+  const { zoom, template } = useCover();
   const ref = useRef<HTMLDivElement>(null);
   const rotateX = useSpring(useMotionValue(0), TILT_SPRING);
   const rotateY = useSpring(useMotionValue(0), TILT_SPRING);
@@ -89,14 +95,29 @@ const Preview = () => {
         <div className="absolute bottom-5 right-5 z-10">
           <ZoomPreview />
         </div>
+        
         <motion.div
           className="will-change-transform flex flex-col gap-5 relative w-full max-w-full max-h-full min-h-0 min-w-0 flex-1 justify-center items-center"
           style={{ scale, rotateX, rotateY }}
         >
           <div
-            id="cover-preview"
-            className="bg-card border rounded-lg aspect-video shadow-lg relative w-full max-w-2xl overflow-hidden"
+            className={cn(
+              'bg-card border rounded-lg aspect-video shadow-lg relative w-full max-w-2xl overflow-hidden',
+              !template && 'border-dashed'
+            )}
           >
+            {template ? (
+              <p>{template.name}</p>
+            ) : (
+              <Empty className="w-full h-full flex items-center justify-center">
+                <EmptyHeader>
+                  <EmptyMedia variant="icon">
+                    <SquircleDashed size={24} />
+                  </EmptyMedia>
+                  <EmptyTitle>Select a template</EmptyTitle>
+                </EmptyHeader>
+              </Empty>
+            )}
             {/* <img
               src="https://i.scdn.co/image/ab67616d00001e02723eafa7603e125a59a43dcd"
               alt="Preview"
@@ -113,7 +134,7 @@ const Preview = () => {
               <div className="w-2 h-2 rounded-full bg-primary" />
 
               <p className="text-sm text-muted-foreground">
-                Dual Device Symmetry
+                {template?.name || 'No template selected'}
               </p>
             </div>
             <span className="text-muted-foreground/50 text-sm font-departure">
