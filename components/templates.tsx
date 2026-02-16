@@ -3,9 +3,11 @@
 import { categories, templates as templatesData } from '@/data/templates';
 import { useCover } from '@/hooks/useCover';
 import { cn } from '@/lib/utils';
+import { useTheme } from 'next-themes';
 import Image from 'next/image';
 const Templates = () => {
   const { template, setTemplate } = useCover();
+  const { theme } = useTheme();
   return (
     <>
       {categories.map((category) => (
@@ -30,11 +32,18 @@ const Templates = () => {
                   onClick={() => setTemplate(templateData.id)}
                 >
                   <Image
-                    src={`/templates/${templateData.id}.svg`}
+                    src={`/templates/dark/${templateData.id}.svg`}
                     alt={templateData.name}
                     width={1280}
                     height={720}
-                    className="w-full rounded-md"
+                    className="w-full rounded-md hidden dark:block"
+                  />
+                  <Image
+                    src={`/templates/light/${templateData.id}.svg`}
+                    alt={templateData.name}
+                    width={1280}
+                    height={720}
+                    className="w-full rounded-md dark:hidden"
                   />
                   <span className="text-sm font-medium group-hover:text-foreground pl-1">
                     {templateData.name}

@@ -1,4 +1,12 @@
 import {
+  Combobox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxList,
+} from '@/components/ui/combobox';
+import {
   Field,
   FieldDescription,
   FieldGroup,
@@ -18,7 +26,11 @@ import { Textarea } from './ui/textarea';
 const TemplateForm = () => {
   const { template, values, setValues } = useCover();
 
-  if (!template) return null;
+  if (!template) return (
+    <p className="text-sm text-muted-foreground/50 uppercase font-departure">
+      No template selected
+    </p>
+  );
 
   return (
     <div className="flex flex-col gap-4">
@@ -70,6 +82,27 @@ const TemplateForm = () => {
                   ))}
                 </SelectContent>
               </Select>
+            )}
+
+            {field.type === 'combobox' && (
+              <Combobox
+                onValueChange={(value) =>
+                  setValues({ ...values, [field.name]: value ?? '' })
+                }
+                value={values[field.name] ?? ''}
+              >
+                <ComboboxInput placeholder={field.placeholder} />
+                <ComboboxContent>
+                  <ComboboxEmpty>No items found.</ComboboxEmpty>
+                  <ComboboxList>
+                    {field.options.map((option) => (
+                      <ComboboxItem key={option} value={option}>
+                        {option}
+                      </ComboboxItem>
+                    ))}
+                  </ComboboxList>
+                </ComboboxContent>
+              </Combobox>
             )}
           </Field>
         ))}

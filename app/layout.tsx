@@ -1,11 +1,11 @@
 import Header from '@/components/Header';
+import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { ThemeProvider } from '@/provider/theme-provider';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono, Instrument_Serif } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
-import { Toaster } from '@/components/ui/sonner';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -33,10 +33,10 @@ export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'
   ),
-  title: 'GitGlow - Thumbnail generator',
+  title: 'GitGlow - Cover generator',
   description:
-    'Generate custom GitHub-style thumbnails for your projects with GitGlow.',
-  keywords: ['thumbnail generator', 'github', 'thumbnail', 'gitglow'],
+    'Generate custom GitHub-style covers for your projects with GitGlow.',
+  keywords: ['cover generator', 'github', 'cover', 'gitglow'],
   authors: [{ name: 'Lény Sauzet', url: 'https://lenysauzet.com' }],
   creator: 'Lény Sauzet',
   publisher: 'Lény Sauzet',
@@ -66,7 +66,7 @@ export default function RootLayout({
                 {children}
               </div>
             </div>
-            <Toaster position='bottom-center' />
+            <Toaster position="bottom-center" />
           </TooltipProvider>
         </ThemeProvider>
       </body>

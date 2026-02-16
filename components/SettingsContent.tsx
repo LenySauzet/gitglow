@@ -13,7 +13,6 @@ const SettingsContent = () => {
         <div className="absolute z-10 bottom-0 w-full h-6 pointer-events-none bg-background to-transparent backdrop-blur-md [-webkit-mask-image:linear-gradient(to_top,black,transparent)]" />
         <div className="pb-8">
           <Templates />
-          {/* <ExampleForm /> */}
           <TemplateForm />
         </div>
       </ScrollArea>

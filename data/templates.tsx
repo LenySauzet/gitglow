@@ -5,12 +5,18 @@ type BaseField = {
   name: string;
   label: string;
   description?: string;
+};
+
+export type ComboboxField = BaseField & {
+  type: 'combobox';
+  options: string[];
   placeholder?: string;
 };
 
 export type TextField = BaseField & {
   type: 'text';
   placeholder?: string;
+  defaultValue?: string;
 };
 
 export type TextareaField = BaseField & {
@@ -24,7 +30,11 @@ export type SelectField = BaseField & {
   options?: string[];
 };
 
-export type TemplateField = TextField | TextareaField | SelectField;
+export type TemplateField =
+  | TextField
+  | TextareaField
+  | SelectField
+  | ComboboxField;
 
 export type Template = {
   id: string;
@@ -92,18 +102,21 @@ export const templates: Template[] = [
         label: 'Label',
         type: 'text',
         placeholder: 'Enter text',
+        defaultValue: 'Example Label',
       },
       {
         name: 'titleMain',
         label: 'Title Main',
         type: 'text',
         placeholder: 'Enter text',
+        defaultValue: 'Example Title Main',
       },
       {
         name: 'titleAccent',
         label: 'Title Accent',
         type: 'text',
         placeholder: 'Enter text',
+        defaultValue: 'Example Title Accent',
       },
     ],
     component: <ExempleTemplate />,

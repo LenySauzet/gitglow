@@ -13,6 +13,7 @@ import { useEffect, useRef } from 'react';
 import Export from './Export';
 import Reset from './Reset';
 import ZoomPreview from './ZoomPreview';
+
 const TILT_SPRING = { damping: 45, stiffness: 100, mass: 1 };
 const HOVER_SPRING = { damping: 35, stiffness: 300, mass: 0.3 };
 const ZOOM_SPRING = { damping: 40, stiffness: 200, mass: 0.5 };
@@ -44,14 +45,6 @@ const Preview = () => {
     ([s, z]: number[]) => (z / 100) * s
   );
 
-  const shineX = useTransform(rotateY, (r) => 50 + r * 2.5);
-  const shineY = useTransform(rotateX, (r) => 50 - r * 2.5);
-  const shineBackground = useTransform(
-    [shineX, shineY],
-    ([x, y]) =>
-      `radial-gradient(circle at ${x}% ${y}%, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.08) 25%, transparent 50%)`
-  );
-
   const setHover = (entered: boolean) => {
     if (isMobile) return;
     hoverScale.set(entered ? HOVER_SCALE : IDLE_SCALE);
@@ -75,6 +68,7 @@ const Preview = () => {
       <p className="text-sm text-muted-foreground/50 uppercase font-departure">
         Preview
       </p>
+
       <div
         ref={ref}
         className={`border rounded-lg flex-1 flex flex-col items-center justify-center relative bg-card/50 p-4 overflow-hidden ${
@@ -86,10 +80,12 @@ const Preview = () => {
         onMouseLeave={() => setHover(false)}
       >
         <div className="opacity-10 w-full h-full -z-10 absolute bg-[radial-gradient(var(--muted-foreground)_1px,transparent_0)] bg-size-[10px_10px]" />
+
         <div className="absolute top-5 right-5 flex items-center gap-4 z-10">
           <Reset />
           <Export previewRef={exportRef} />
         </div>
+
         <div className="absolute bottom-5 right-5 z-10">
           <ZoomPreview />
         </div>
@@ -99,33 +95,25 @@ const Preview = () => {
           style={{ scale, rotateX, rotateY }}
         >
           <div
-            ref={exportRef}
             className={cn(
               'bg-card border rounded-lg aspect-video shadow-lg relative w-full max-w-2xl overflow-hidden',
               !template && 'border-dashed'
             )}
           >
-            {template ? (
-              template.component
-            ) : (
-              <Empty className="w-full h-full flex items-center justify-center">
-                <EmptyHeader>
-                  <EmptyMedia variant="icon">
-                    <SquircleDashed size={24} />
-                  </EmptyMedia>
-                  <EmptyTitle>Select a template</EmptyTitle>
-                </EmptyHeader>
-              </Empty>
-            )}
-            {/* <img
-              src="https://i.scdn.co/image/ab67616d00001e02723eafa7603e125a59a43dcd"
-              alt="Preview"
-              className="absolute inset-0 w-full h-full object-cover rounded-lg"
-            />
-            <motion.div
-              className="pointer-events-none absolute inset-0 rounded-lg"
-              style={{ background: shineBackground }}
-            /> */}
+            <div ref={exportRef} className="h-full w-full">
+              {template ? (
+                template.component
+              ) : (
+                <Empty className="w-full h-full flex items-center justify-center">
+                  <EmptyHeader>
+                    <EmptyMedia variant="icon">
+                      <SquircleDashed size={24} />
+                    </EmptyMedia>
+                    <EmptyTitle>Select a template</EmptyTitle>
+                  </EmptyHeader>
+                </Empty>
+              )}
+            </div>
           </div>
 
           <div className="flex items-center gap-5">
