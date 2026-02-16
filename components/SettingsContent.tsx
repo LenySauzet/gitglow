@@ -1,4 +1,3 @@
-import ExampleForm from './ExampleForm';
 import TemplateForm from './TemplateForm';
 import Templates from './templates';
 import { ScrollArea } from './ui/scroll-area';

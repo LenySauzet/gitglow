@@ -16,7 +16,7 @@ import {
 import { Textarea } from './ui/textarea';
 
 const TemplateForm = () => {
-  const { template } = useCover();
+  const { template, values, setValues } = useCover();
 
   if (!template) return null;
 
@@ -33,13 +33,32 @@ const TemplateForm = () => {
               <FieldDescription>{field.description}</FieldDescription>
             )}
             {field.type === 'text' && (
-              <Input id={field.name} placeholder={field.placeholder} />
+              <Input
+                id={field.name}
+                placeholder={field.placeholder}
+                onChange={(e) =>
+                  setValues({ ...values, [field.name]: e.target.value })
+                }
+                value={values[field.name] || ''}
+              />
             )}
             {field.type === 'textarea' && (
-              <Textarea id={field.name} placeholder={field.placeholder} />
+              <Textarea
+                id={field.name}
+                placeholder={field.placeholder}
+                onChange={(e) =>
+                  setValues({ ...values, [field.name]: e.target.value })
+                }
+                value={values[field.name] || ''}
+              />
             )}
             {field.type === 'select' && (
-              <Select>
+              <Select
+                onValueChange={(value) =>
+                  setValues({ ...values, [field.name]: value })
+                }
+                value={values[field.name] || ''}
+              >
                 <SelectTrigger>
                   <SelectValue placeholder={field.placeholder} />
                 </SelectTrigger>

@@ -8,10 +8,10 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { useCover } from '@/hooks/useCover';
 import { cn } from '@/lib/utils';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { Download, SquircleDashed } from 'lucide-react';
+import { SquircleDashed } from 'lucide-react';
 import { useEffect, useRef } from 'react';
+import Export from './Export';
 import Reset from './Reset';
-import { Button } from './ui/button';
 import ZoomPreview from './ZoomPreview';
 const TILT_SPRING = { damping: 45, stiffness: 100, mass: 1 };
 const HOVER_SPRING = { damping: 35, stiffness: 300, mass: 0.3 };
@@ -24,6 +24,7 @@ const Preview = () => {
   const isMobile = useIsMobile();
   const { zoom, template } = useCover();
   const ref = useRef<HTMLDivElement>(null);
+  const exportRef = useRef<HTMLDivElement>(null);
   const rotateX = useSpring(useMotionValue(0), TILT_SPRING);
   const rotateY = useSpring(useMotionValue(0), TILT_SPRING);
   const hoverScale = useSpring(IDLE_SCALE, HOVER_SPRING);
@@ -87,27 +88,25 @@ const Preview = () => {
         <div className="opacity-10 w-full h-full -z-10 absolute bg-[radial-gradient(var(--muted-foreground)_1px,transparent_0)] bg-size-[10px_10px]" />
         <div className="absolute top-5 right-5 flex items-center gap-4 z-10">
           <Reset />
-          <Button size="sm">
-            <Download size={16} />
-            Export
-          </Button>
+          <Export previewRef={exportRef} />
         </div>
         <div className="absolute bottom-5 right-5 z-10">
           <ZoomPreview />
         </div>
-        
+
         <motion.div
           className="will-change-transform flex flex-col gap-5 relative w-full max-w-full max-h-full min-h-0 min-w-0 flex-1 justify-center items-center"
           style={{ scale, rotateX, rotateY }}
         >
           <div
+            ref={exportRef}
             className={cn(
               'bg-card border rounded-lg aspect-video shadow-lg relative w-full max-w-2xl overflow-hidden',
               !template && 'border-dashed'
             )}
           >
             {template ? (
-              <p>{template.name}</p>
+              template.component
             ) : (
               <Empty className="w-full h-full flex items-center justify-center">
                 <EmptyHeader>

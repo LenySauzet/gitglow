@@ -14,7 +14,12 @@ const ModeToggle = () => {
 
   useEffect(() => {
     const handleKeyboardShortcut = (event: KeyboardEvent) => {
-      if (event.key === 'd') {
+      const target = event.target as HTMLElement;
+      const isTyping =
+        target.tagName === 'INPUT' ||
+        target.tagName === 'TEXTAREA' ||
+        target.isContentEditable;
+      if (event.key === 'd' && !isTyping) {
         setTheme((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'));
       }
     };

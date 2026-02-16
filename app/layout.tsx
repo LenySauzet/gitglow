@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono, Instrument_Serif } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
+import { Toaster } from '@/components/ui/sonner';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -65,6 +66,7 @@ export default function RootLayout({
                 {children}
               </div>
             </div>
+            <Toaster position='bottom-center' />
           </TooltipProvider>
         </ThemeProvider>
       </body>
