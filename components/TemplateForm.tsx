@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { useCover } from '@/hooks/useCover';
+import { ColorInput } from './ColorInput';
 import {
   Select,
   SelectContent,
@@ -26,15 +27,16 @@ import { Textarea } from './ui/textarea';
 const TemplateForm = () => {
   const { template, values, setValues } = useCover();
 
-  if (!template) return (
-    <p className="text-sm text-muted-foreground/50 uppercase font-departure">
-      No template selected
-    </p>
-  );
+  if (!template)
+    return (
+      <p className="text-sm uppercase tracking-wider text-muted-foreground/50 font-departure">
+        No template selected
+      </p>
+    );
 
   return (
     <div className="flex flex-col gap-4">
-      <p className="text-sm text-muted-foreground/50 uppercase font-departure">
+      <p className="text-sm uppercase tracking-wider text-muted-foreground/50 font-departure">
         {template?.name}
       </p>
       <FieldGroup>
@@ -104,6 +106,8 @@ const TemplateForm = () => {
                 </ComboboxContent>
               </Combobox>
             )}
+
+            {field.type === 'color' && <ColorInput />}
           </Field>
         ))}
       </FieldGroup>

@@ -60,7 +60,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <TooltipProvider>
-            <div className="h-screen overflow-hidden p-10 flex flex-col">
+            <div className="h-screen overflow-hidden p-5 sm:p-10 flex flex-col">
               <Header />
               <div className="flex-1  overflow-hidden flex flex-col">
                 {children}

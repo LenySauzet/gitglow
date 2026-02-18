@@ -5,7 +5,7 @@ import { ScrollArea } from './ui/scroll-area';
 const SettingsContent = () => {
   return (
     <aside className="flex flex-1 flex-col overflow-hidden">
-      <p className="text-sm text-muted-foreground/50 uppercase font-departure">
+      <p className="text-sm uppercase tracking-wider text-muted-foreground/50 font-departure">
         Templates
       </p>
       <ScrollArea className="h-full pr-6 flex-1 flex flex-col gap-4 overflow-hidden">

@@ -5,6 +5,8 @@ import { RefObject, useCallback, useState } from 'react';
 import { toast } from 'sonner';
 import { Button } from './ui/button';
 
+const EXPORT_SIZE = { width: 1280, height: 720 };
+
 type ExportProps = {
   previewRef: RefObject<HTMLDivElement | null>;
 };
@@ -16,21 +18,33 @@ const Export = ({ previewRef }: ExportProps) => {
   const handleExport = useCallback(async () => {
     if (!previewRef.current || !template) return;
     setIsExporting(true);
+
     try {
       const dataUrl = await toPng(previewRef.current, {
+        width: EXPORT_SIZE.width,
+        height: EXPORT_SIZE.height,
+        canvasWidth: EXPORT_SIZE.width,
+        canvasHeight: EXPORT_SIZE.height,
         cacheBust: true,
-        pixelRatio: 2,
+        style: {
+          transform: 'scale(1)',
+          left: '0',
+          top: '0',
+          margin: '0',
+        },
       });
+
       const link = document.createElement('a');
       link.download = `${template.name}-${Date.now()}.png`;
       link.href = dataUrl;
       link.click();
+
+      toast.success('Export réussi');
     } catch (err) {
       console.error('Export failed:', err);
       toast.error('Export failed');
     } finally {
       setIsExporting(false);
-      toast.success('Export successful');
     }
   }, [previewRef, template]);
 

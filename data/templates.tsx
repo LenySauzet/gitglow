@@ -7,6 +7,10 @@ type BaseField = {
   description?: string;
 };
 
+export type ColorField = BaseField & {
+  type: 'color';
+};
+
 export type ComboboxField = BaseField & {
   type: 'combobox';
   options: string[];
@@ -34,7 +38,8 @@ export type TemplateField =
   | TextField
   | TextareaField
   | SelectField
-  | ComboboxField;
+  | ComboboxField
+  | ColorField;
 
 export type Template = {
   id: string;
@@ -97,26 +102,31 @@ export const templates: Template[] = [
     name: 'Minimal Slate',
     categoryId: 1,
     fields: [
+      // {
+      //   name: 'accentColor',
+      //   label: 'Accent Color',
+      //   type: 'color',
+      // },
       {
         name: 'label',
         label: 'Label',
         type: 'text',
         placeholder: 'Enter text',
-        defaultValue: 'Example Label',
+        defaultValue: '@GitGlow',
       },
       {
         name: 'titleMain',
         label: 'Title Main',
         type: 'text',
         placeholder: 'Enter text',
-        defaultValue: 'Example Title Main',
+        defaultValue: 'Build a',
       },
       {
         name: 'titleAccent',
         label: 'Title Accent',
         type: 'text',
         placeholder: 'Enter text',
-        defaultValue: 'Example Title Accent',
+        defaultValue: 'Cover Generator',
       },
     ],
     component: <ExempleTemplate />,
