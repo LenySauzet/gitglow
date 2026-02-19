@@ -16,12 +16,14 @@ const GitHubStarsButton = () => {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button size="sm" variant="ghost" className="flex items-center gap-2">
-          <Star size={16} />
-          <span className="text-xs font-departure text-muted-foreground">
-            {stars}
-          </span>
-        </Button>
+        <a href="https://github.com/LenySauzet/readme-generator" target="_blank">
+          <Button size="sm" variant="ghost" className="flex items-center gap-2">
+            <Star size={16} />
+            <span className="text-xs font-departure text-muted-foreground">
+              {stars}
+            </span>
+          </Button>
+        </a>
       </TooltipTrigger>
       <TooltipContent side="bottom">
         <p>GitHub Stars</p>

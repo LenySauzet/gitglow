@@ -15,6 +15,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { useCover } from '@/hooks/useCover';
 import { ColorInput } from './ColorInput';
+import { IconInput } from './IconInput';
 import {
   Select,
   SelectContent,
@@ -53,7 +54,7 @@ const TemplateForm = () => {
                 onChange={(e) =>
                   setValues({ ...values, [field.name]: e.target.value })
                 }
-                value={values[field.name] || ''}
+                value={(values[field.name] as string) || ''}
               />
             )}
             {field.type === 'textarea' && (
@@ -63,7 +64,7 @@ const TemplateForm = () => {
                 onChange={(e) =>
                   setValues({ ...values, [field.name]: e.target.value })
                 }
-                value={values[field.name] || ''}
+                value={(values[field.name] as string) || ''}
               />
             )}
             {field.type === 'select' && (
@@ -71,7 +72,7 @@ const TemplateForm = () => {
                 onValueChange={(value) =>
                   setValues({ ...values, [field.name]: value })
                 }
-                value={values[field.name] || ''}
+                value={(values[field.name] as string) || ''}
               >
                 <SelectTrigger>
                   <SelectValue placeholder={field.placeholder} />
@@ -91,7 +92,7 @@ const TemplateForm = () => {
                 onValueChange={(value) =>
                   setValues({ ...values, [field.name]: value ?? '' })
                 }
-                value={values[field.name] ?? ''}
+                value={(values[field.name] as string) ?? ''}
               >
                 <ComboboxInput placeholder={field.placeholder} />
                 <ComboboxContent>
@@ -107,7 +108,8 @@ const TemplateForm = () => {
               </Combobox>
             )}
 
-            {field.type === 'color' && <ColorInput />}
+            {field.type === 'color' && <ColorInput name={field.name} />}
+            {field.type === 'icon' && <IconInput name={field.name} />}
           </Field>
         ))}
       </FieldGroup>

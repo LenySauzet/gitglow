@@ -57,7 +57,7 @@ export default function RootLayout({
           attribute="class"
           defaultTheme="system"
           enableSystem
-          disableTransitionOnChange
+          // disableTransitionOnChange
         >
           <TooltipProvider>
             <div className="h-screen overflow-hidden p-5 sm:p-10 flex flex-col">

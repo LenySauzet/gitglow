@@ -1,82 +1,119 @@
-'use client';
-
 import {
-  Combobox,
-  ComboboxCollection,
-  ComboboxContent,
-  ComboboxEmpty,
-  ComboboxGroup,
-  ComboboxInput,
-  ComboboxItem,
-  ComboboxLabel,
-  ComboboxList,
-} from '@/components/ui/combobox';
-import { InputGroupAddon } from '@/components/ui/input-group';
-import { GlobeIcon } from 'lucide-react';
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { useCover } from '@/hooks/useCover';
 
-// const colors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF'];
+export const DEFAULT_COLOR = '#a1a1a1';
 
-const timezones = [
+const COLORS = [
   {
-    value: 'Americas',
-    items: [
-      '(GMT-5) New York',
-      '(GMT-8) Los Angeles',
-      '(GMT-6) Chicago',
-      '(GMT-5) Toronto',
-      '(GMT-8) Vancouver',
-      '(GMT-3) São Paulo',
-    ],
+    color: DEFAULT_COLOR,
+    label: 'Neutral',
   },
   {
-    value: 'Europe',
-    items: [
-      '(GMT+0) London',
-      '(GMT+1) Paris',
-      '(GMT+1) Berlin',
-      '(GMT+1) Rome',
-      '(GMT+1) Madrid',
-      '(GMT+1) Amsterdam',
-    ],
+    color: '#f49f1e',
+    label: 'Amber',
   },
   {
-    value: 'Asia/Pacific',
-    items: [
-      '(GMT+9) Tokyo',
-      '(GMT+8) Shanghai',
-      '(GMT+8) Singapore',
-      '(GMT+4) Dubai',
-      '(GMT+11) Sydney',
-      '(GMT+9) Seoul',
-    ],
+    color: '#1e3fad',
+    label: 'Blue',
+  },
+  {
+    color: '#00b5d4',
+    label: 'Cyan',
+  },
+  {
+    color: '#17bb81',
+    label: 'Emerald',
+  },
+  {
+    color: '#b43dc6',
+    label: 'Fuchsia',
+  },
+  {
+    color: '#5da600',
+    label: 'Green',
+  },
+  {
+    color: '#6469f0',
+    label: 'Indigo',
+  },
+  {
+    color: '#85cd22',
+    label: 'Lime',
+  },
+  {
+    color: '#ff6900',
+    label: 'Orange',
+  },
+  {
+    color: '#ed4a9b',
+    label: 'Pink',
+  },
+  {
+    color: '#a856f7',
+    label: 'Purple',
+  },
+  {
+    color: '#ce2931',
+    label: 'Red',
+  },
+  {
+    color: '#ff2157',
+    label: 'Rose',
+  },
+  {
+    color: '#00a3e9',
+    label: 'Sky',
+  },
+  {
+    color: '#1bb6a6',
+    label: 'Teal',
+  },
+  {
+    color: '#8e51ff',
+    label: 'Violet',
+  },
+  {
+    color: '#f0b100',
+    label: 'Yellow',
   },
 ] as const;
 
-export function ColorInput() {
+type ColorInputProps = {
+  name: string;
+  placeholder?: string;
+};
+
+export function ColorInput({ name }: ColorInputProps) {
+  const { values, setValues } = useCover();
+  const value = (values[name] as string) || DEFAULT_COLOR;
   return (
-    <Combobox items={timezones} >
-      <ComboboxInput placeholder="Select a timezone">
-        <InputGroupAddon>
-          <GlobeIcon />
-        </InputGroupAddon>
-      </ComboboxInput>
-      <ComboboxContent alignOffset={-28} className="w-60">
-        <ComboboxEmpty>No timezones found.</ComboboxEmpty>
-        <ComboboxList>
-          {(group) => (
-            <ComboboxGroup key={group.value} items={group.items}>
-              <ComboboxLabel>{group.value}</ComboboxLabel>
-              <ComboboxCollection>
-                {(item) => (
-                  <ComboboxItem key={item} value={item}>
-                    {item}
-                  </ComboboxItem>
-                )}
-              </ComboboxCollection>
-            </ComboboxGroup>
-          )}
-        </ComboboxList>
-      </ComboboxContent>
-    </Combobox>
+    <Select
+      value={value}
+      onValueChange={(value) => setValues({ ...values, [name]: value })}
+    >
+      <SelectTrigger className="cursor-pointer">
+        <SelectValue placeholder="select a color" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          {COLORS.map((color) => (
+            <SelectItem key={color.color} value={color.color}>
+              <div
+                className="w-4 h-4 rounded-full"
+                style={{ backgroundColor: color.color }}
+              />
+              {color.label}
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
   );
 }
