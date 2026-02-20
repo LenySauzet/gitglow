@@ -30,9 +30,7 @@ const departureMono = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'
-  ),
+  metadataBase: new URL('https://gitglow.lenysauzet.com'),
   title: 'GitGlow - Cover generator',
   description:
     'Generate custom GitHub-style covers for your projects with GitGlow.',
