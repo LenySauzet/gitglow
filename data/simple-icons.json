@@ -11678,6 +11678,12 @@
     "source": "https://github.com/isl-org/Open3D/blob/2ae042aa74ad3917afd891e36798ffe687513662/cpp/apps/Open3DViewer/icon.svg"
   },
   {
+    "title": "OpenAI",
+    "hex": "FFFFFF",
+    "source": "https://openai.com/fr-FR/brand/",
+    "guidelines": "https://openai.com/fr-FR/brand/"
+  },
+  {
     "title": "OpenAI Gym",
     "hex": "0081A5",
     "source": "https://gym.openai.com"
@@ -19109,6 +19115,11 @@
     "title": "Zulip",
     "hex": "6492FE",
     "source": "https://github.com/zulip/zulip/blob/df9e40491dc77b658d943cff36a816d46e32ce1b/static/images/logo/zulip-org-logo.svg"
+  },
+  {
+    "title": "Zustand",
+    "hex": "AD9686",
+    "source": "https://github.com/pmndrs/zustand/discussions/1623"
   },
   {
     "title": "Zyte",

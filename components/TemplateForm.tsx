@@ -16,6 +16,7 @@ import { Input } from '@/components/ui/input';
 import { useCover } from '@/hooks/useCover';
 import { ColorInput } from './ColorInput';
 import { IconInput } from './IconInput';
+import ImageInput from './ImageInput';
 import {
   Select,
   SelectContent,
@@ -110,6 +111,7 @@ const TemplateForm = () => {
 
             {field.type === 'color' && <ColorInput name={field.name} />}
             {field.type === 'icon' && <IconInput name={field.name} />}
+            {field.type === 'image' && <ImageInput name={field.name} />}
           </Field>
         ))}
       </FieldGroup>

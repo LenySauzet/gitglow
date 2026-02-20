@@ -1,10 +1,22 @@
-import { ExempleTemplate } from '@/components/templates/index';
+import {
+  AngledCanvas,
+  ExempleTemplate,
+  FloatingLayers,
+  GlowSpotlight,
+  MinimalSlate,
+  PerspectiveStack,
+  SplitGradient,
+} from '@/components/templates/index';
 import { AppWindowMac, LucideIcon } from 'lucide-react';
 
 type BaseField = {
   name: string;
   label: string;
   description?: string;
+};
+
+export type ImageField = BaseField & {
+  type: 'image';
 };
 
 export type IconField = BaseField & {
@@ -44,7 +56,8 @@ export type TemplateField =
   | SelectField
   | ComboboxField
   | ColorField
-  | IconField;
+  | IconField
+  | ImageField;
 
 export type Template = {
   id: string;
@@ -112,92 +125,282 @@ export const templates: Template[] = [
         description: 'This is the icons of the template',
         type: 'icon',
       },
+      {
+        name: 'image',
+        label: 'Image',
+        description: 'This is the image of the template',
+        type: 'image',
+      },
     ],
+    component: <MinimalSlate />,
+  },
+  {
+    id: 'perspective-stack',
+    name: 'Perspective Stack',
+    categoryId: 1,
+    fields: [
+      {
+        name: 'accentColor',
+        label: 'Accent Color',
+        description: 'This is the accent color of the template',
+        type: 'color',
+      },
+      {
+        name: 'label',
+        label: 'Label',
+        type: 'text',
+        placeholder: 'Enter text',
+        defaultValue: '@GitGlow',
+      },
+      {
+        name: 'titleMain',
+        label: 'Title Main',
+        type: 'text',
+        placeholder: 'Enter text',
+        defaultValue: 'Build a',
+      },
+      {
+        name: 'titleAccent',
+        label: 'Title Accent',
+        type: 'text',
+        placeholder: 'Enter text',
+        defaultValue: 'Cover Generator',
+      },
+      {
+        name: 'icons',
+        label: 'Icons',
+        description: 'This is the icons of the template',
+        type: 'icon',
+      },
+      {
+        name: 'image',
+        label: 'Image',
+        description: 'This is the image of the template',
+        type: 'image',
+      },
+    ],
+    component: <PerspectiveStack />,
+  },
+  {
+    id: 'glow-spotlight',
+    name: 'Glow Spotlight',
+    categoryId: 1,
+    fields: [
+      {
+        name: 'accentColor',
+        label: 'Accent Color',
+        description: 'This is the accent color of the template',
+        type: 'color',
+      },
+      {
+        name: 'label',
+        label: 'Label',
+        type: 'text',
+        placeholder: 'Enter text',
+        defaultValue: '@GitGlow',
+      },
+      {
+        name: 'titleMain',
+        label: 'Title Main',
+        type: 'text',
+        placeholder: 'Enter text',
+        defaultValue: 'Build a',
+      },
+      {
+        name: 'titleAccent',
+        label: 'Title Accent',
+        type: 'text',
+        placeholder: 'Enter text',
+        defaultValue: 'Cover Generator',
+      },
+      {
+        name: 'icons',
+        label: 'Icons',
+        description: 'This is the icons of the template',
+        type: 'icon',
+      },
+      {
+        name: 'image',
+        label: 'Image',
+        description: 'This is the image of the template',
+        type: 'image',
+      },
+    ],
+    component: <GlowSpotlight />,
+  },
+  {
+    id: 'angled-canvas',
+    name: 'Angled Canvas',
+    categoryId: 1,
+    fields: [
+      {
+        name: 'accentColor',
+        label: 'Accent Color',
+        description: 'This is the accent color of the template',
+        type: 'color',
+      },
+      {
+        name: 'label',
+        label: 'Label',
+        type: 'text',
+        placeholder: 'Enter text',
+        defaultValue: '@GitGlow',
+      },
+      {
+        name: 'titleMain',
+        label: 'Title Main',
+        type: 'text',
+        placeholder: 'Enter text',
+        defaultValue: 'Build a',
+      },
+      {
+        name: 'titleAccent',
+        label: 'Title Accent',
+        type: 'text',
+        placeholder: 'Enter text',
+        defaultValue: 'Cover Generator',
+      },
+      {
+        name: 'icons',
+        label: 'Icons',
+        description: 'This is the icons of the template',
+        type: 'icon',
+      },
+      {
+        name: 'image',
+        label: 'Image',
+        description: 'This is the image of the template',
+        type: 'image',
+      },
+    ],
+    component: <AngledCanvas />,
+  },
+  {
+    id: 'floating-layers',
+    name: 'Floating Layers',
+    categoryId: 1,
+    fields: [
+      {
+        name: 'accentColor',
+        label: 'Accent Color',
+        description: 'This is the accent color of the template',
+        type: 'color',
+      },
+      {
+        name: 'label',
+        label: 'Label',
+        type: 'text',
+        placeholder: 'Enter text',
+        defaultValue: '@GitGlow',
+      },
+      {
+        name: 'titleMain',
+        label: 'Title Main',
+        type: 'text',
+        placeholder: 'Enter text',
+        defaultValue: 'Build a',
+      },
+      {
+        name: 'titleAccent',
+        label: 'Title Accent',
+        type: 'text',
+        placeholder: 'Enter text',
+        defaultValue: 'Cover Generator',
+      },
+      {
+        name: 'icons',
+        label: 'Icons',
+        description: 'This is the icons of the template',
+        type: 'icon',
+      },
+      {
+        name: 'image',
+        label: 'Image',
+        description: 'This is the image of the template',
+        type: 'image',
+      },
+      {
+        name: 'imageSecondary',
+        label: 'Image Secondary',
+        description: 'This is the secondary image of the template',
+        type: 'image',
+      },
+    ],
+    component: <FloatingLayers />,
+  },
+  {
+    id: 'split-gradient',
+    name: 'Split Gradient',
+    categoryId: 1,
+    fields: [
+      {
+        name: 'accentColor',
+        label: 'Accent Color',
+        description: 'This is the accent color of the template',
+        type: 'color',
+      },
+      {
+        name: 'label',
+        label: 'Label',
+        type: 'text',
+        placeholder: 'Enter text',
+        defaultValue: '@GitGlow',
+      },
+      {
+        name: 'titleMain',
+        label: 'Title Main',
+        type: 'text',
+        placeholder: 'Enter text',
+        defaultValue: 'Build a',
+      },
+      {
+        name: 'titleAccent',
+        label: 'Title Accent',
+        type: 'text',
+        placeholder: 'Enter text',
+        defaultValue: 'Cover Generator',
+      },
+      {
+        name: 'icons',
+        label: 'Icons',
+        description: 'This is the icons of the template',
+        type: 'icon',
+      },
+      {
+        name: 'image',
+        label: 'Image',
+        description: 'This is the image of the template',
+        type: 'image',
+      },
+    ],
+    component: <SplitGradient />,
+  },
+  {
+    id: 'dual-device-symmetry',
+    name: 'Dual Device Symmetry',
+    categoryId: 2,
+    fields: [],
     component: <ExempleTemplate />,
   },
-  // {
-  //   id: 'angled-canvas',
-  //   name: 'Angled Canvas',
-  //   categoryId: 1,
-  //   fields: [],
-  //   component: <ExempleTemplate />,
-  // },
-  // {
-  //   id: 'dual-device-symmetry',
-  //   name: 'Dual Device Symmetry',
-  //   categoryId: 2,
-  //   fields: [],
-  //   component: <ExempleTemplate />,
-  // },
-  // {
-  //   id: 'floating-layers',
-  //   name: 'Floating Layers',
-  //   categoryId: 1,
-  //   fields: [],
-  //   component: <ExempleTemplate />,
-  // },
-  // {
-  //   id: 'glow-spotlight',
-  //   name: 'Glow Spotlight',
-  //   categoryId: 1,
-  //   fields: [],
-  //   component: <ExempleTemplate />,
-  // },
-
-  // {
-  //   id: 'multi-device-grid',
-  //   name: 'Multi Device Grid',
-  //   categoryId: 2,
-  //   fields: [],
-  //   component: <ExempleTemplate />,
-  // },
-  // {
-  //   id: 'perspective-stack',
-  //   name: 'Perspective Stack',
-  //   categoryId: 1,
-  //   fields: [
-  //     {
-  //       name: 'textInput',
-  //       label: 'Text Input',
-  //       type: 'text',
-  //       placeholder: 'Enter text',
-  //     },
-  //     {
-  //       name: 'textareaInput',
-  //       label: 'Textarea Input',
-  //       description: 'This is a textarea input',
-  //       type: 'textarea',
-  //       placeholder: 'Enter text',
-  //     },
-  //     {
-  //       name: 'selectInput',
-  //       label: 'Select Input',
-  //       type: 'select',
-  //       placeholder: 'Select option',
-  //       options: ['Option 1', 'Option 2', 'Option 3'],
-  //     },
-  //   ],
-  //   component: <ExempleTemplate />,
-  // },
-  // {
-  //   id: 'single-device-hero',
-  //   name: 'Single Device Hero',
-  //   categoryId: 2,
-  //   fields: [],
-  //   component: <ExempleTemplate />,
-  // },
-  // {
-  //   id: 'split-gradient',
-  //   name: 'Split Gradient',
-  //   categoryId: 1,
-  //   fields: [],
-  //   component: <ExempleTemplate />,
-  // },
-  // {
-  //   id: 'triple-device-showcase',
-  //   name: 'Triple Device Showcase',
-  //   categoryId: 2,
-  //   fields: [],
-  //   component: <ExempleTemplate />,
-  // },
+  {
+    id: 'multi-device-grid',
+    name: 'Multi Device Grid',
+    categoryId: 2,
+    fields: [],
+    component: <ExempleTemplate />,
+  },
+  {
+    id: 'single-device-hero',
+    name: 'Single Device Hero',
+    categoryId: 2,
+    fields: [],
+    component: <ExempleTemplate />,
+  },
+  {
+    id: 'triple-device-showcase',
+    name: 'Triple Device Showcase',
+    categoryId: 2,
+    fields: [],
+    component: <ExempleTemplate />,
+  },
 ];

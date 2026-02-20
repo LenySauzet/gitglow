@@ -5,7 +5,7 @@ import { convertIconTitleToIcon } from '@/lib/utils';
 const accent = (values: Record<string, string | string[] | boolean>) =>
   (values.accentColor as string) || DEFAULT_COLOR;
 
-const ExempleTemplate = () => {
+const PerspectiveStack = () => {
   const { values } = useCover();
   const year = new Date().getFullYear();
   const iconTitles = Array.isArray(values.icons) ? values.icons : [];
@@ -13,17 +13,27 @@ const ExempleTemplate = () => {
   return (
     <div className="w-full h-full relative flex flex-col justify-between p-15 overflow-hidden bg-black">
       <div
-        className="absolute top-0 left-0 w-full h-full z-10"
+        className="pointer-events-none absolute inset-0 z-20"
         style={{
-          background: `linear-gradient(to bottom, ${accentColor} 0%, transparent 100%)`,
+          background: `radial-gradient(circle at 100% 100%, ${accentColor} 0%, transparent 70%)`,
         }}
       />
       <div
-        className="absolute top-0 left-0 w-full h-full blur-xs bg-cover bg-center"
+        className="pointer-events-none absolute inset-0 z-10"
         style={{
+          background: `radial-gradient(circle at 100% 100%, ${accentColor} 0%, transparent 100%)`,
+        }}
+      />
+
+      <div
+        className="absolute bottom-0 right-0 z-10 w-[1280px] h-[720px] rounded-tl-[32px] bg-cover outline-6 outline-solid translate-x-[20%] translate-y-[20%]"
+        style={{
+          outlineColor: `${accentColor}20`,
+          backgroundPosition: values.image ? 'top left' : 'center',
           backgroundImage: `url(${values.image || '/placeholder.svg'})`,
         }}
       />
+
       <div className="flex justify-between items-center">
         <div className="text-[3rem] font-bold z-20 text-white">{year}</div>
         {values.label && (
@@ -74,4 +84,4 @@ const ExempleTemplate = () => {
   );
 };
 
-export default ExempleTemplate;
+export default PerspectiveStack;
