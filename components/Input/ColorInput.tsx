@@ -90,7 +90,7 @@ type ColorInputProps = {
   placeholder?: string;
 };
 
-export function ColorInput({ name }: ColorInputProps) {
+const ColorInput = ({ name }: ColorInputProps) => {
   const { values, setValues } = useCover();
   const value = (values[name] as string) || DEFAULT_COLOR;
   return (
@@ -116,4 +116,6 @@ export function ColorInput({ name }: ColorInputProps) {
       </SelectContent>
     </Select>
   );
-}
+};
+
+export default ColorInput;

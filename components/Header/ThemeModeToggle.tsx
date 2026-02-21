@@ -1,11 +1,14 @@
+import { createShortcutHandler } from '@/lib/keyboard-shortcut';
 import { Kbd } from '@/components/ui/kbd';
 import { Contrast } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useEffect } from 'react';
-import { Button } from './ui/button';
-import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
+import { Button } from '@/components/ui/button';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
-const ModeToggle = () => {
+const THEME_MODE_TOGGLE_KEYBOARD_SHORTCUT = 'd';
+
+const ThemeModeToggle = () => {
   const { setTheme } = useTheme();
 
   const handleToggle = () => {
@@ -13,16 +16,11 @@ const ModeToggle = () => {
   };
 
   useEffect(() => {
-    const handleKeyboardShortcut = (event: KeyboardEvent) => {
-      const target = event.target as HTMLElement;
-      const isTyping =
-        target.tagName === 'INPUT' ||
-        target.tagName === 'TEXTAREA' ||
-        target.isContentEditable;
-      if (event.key === 'd' && !isTyping) {
+    const handleKeyboardShortcut = createShortcutHandler((event) => {
+      if (event.key === THEME_MODE_TOGGLE_KEYBOARD_SHORTCUT) {
         setTheme((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'));
       }
-    };
+    });
     window.addEventListener('keydown', handleKeyboardShortcut);
     return () => {
       window.removeEventListener('keydown', handleKeyboardShortcut);
@@ -38,11 +36,11 @@ const ModeToggle = () => {
       </TooltipTrigger>
       <TooltipContent side="bottom">
         <div className="flex items-center gap-2">
-          Toggle Mode <Kbd>D</Kbd>
+          Toggle Mode <Kbd>{THEME_MODE_TOGGLE_KEYBOARD_SHORTCUT}</Kbd>
         </div>
       </TooltipContent>
     </Tooltip>
   );
 };
 
-export default ModeToggle;
+export default ThemeModeToggle;

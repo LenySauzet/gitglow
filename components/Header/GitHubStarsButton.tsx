@@ -2,8 +2,8 @@
 
 import { Star } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { Button } from './ui/button';
-import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
+import { Button } from '@/components/ui/button';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 const GitHubStarsButton = () => {
   const [stars, setStars] = useState(0);

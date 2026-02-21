@@ -1,29 +1,60 @@
-import { DEFAULT_COLOR } from '@/components/ColorInput';
+import { DEFAULT_COLOR } from '@/components/Input/ColorInput';
 import { useCover } from '@/hooks/useCover';
 import { convertIconTitleToIcon } from '@/lib/utils';
 
-const accent = (values: Record<string, string | string[] | boolean>) =>
-  (values.accentColor as string) || DEFAULT_COLOR;
+const theme = (values: Record<string, string | string[] | boolean>) =>
+  (values.themeColor as string) || DEFAULT_COLOR;
 
-const MinimalSlate = () => {
+const AngledCanvas = () => {
   const { values } = useCover();
   const year = new Date().getFullYear();
   const iconTitles = Array.isArray(values.icons) ? values.icons : [];
-  const accentColor = accent(values);
+  const themeColor = theme(values);
   return (
     <div className="w-full h-full relative flex flex-col justify-between p-15 overflow-hidden bg-black">
       <div
         className="absolute top-0 left-0 w-full h-full z-10"
         style={{
-          background: `linear-gradient(to bottom, ${accentColor} 0%, transparent 100%)`,
+          background: `linear-gradient(to bottom, ${themeColor} 0%, transparent 100%)`,
         }}
       />
+
+      <div className="absolute top-0 left-0 w-full h-full z-10 bg-linear-to-r from-black/50 to-transparent" />
+
       <div
         className="absolute top-0 left-0 w-full h-full blur-xs bg-cover bg-center"
         style={{
           backgroundImage: `url(${values.image || '/placeholder.svg'})`,
         }}
       />
+
+      <div className="absolute -right-[200px] bottom-[10%] z-20 w-[900px]">
+        <div className="relative aspect-video">
+          <div
+            className="absolute inset-0 rounded-xl bg-[#121214] ring-1 ring-white/10 shadow-lg/50"
+            style={{
+              transform: 'rotate(7deg) translate(32px, 32px)',
+            }}
+          />
+
+          <div
+            className="absolute inset-0 rounded-xl bg-[#121214] ring-1 ring-white/10 shadow-lg/50"
+            style={{
+              transform: 'rotate(7deg) translate(16px, 16px)',
+            }}
+          />
+
+          <div
+            className="absolute inset-0 overflow-hidden rounded-xl bg-cover bg-center shadow-lg/50 ring-1 ring-white/10"
+            style={{
+              transform: 'rotate(7deg)',
+              backgroundImage: `url(${values.image || '/placeholder.svg'})`,
+              backgroundPosition: values.image ? 'top left' : 'center',
+            }}
+          />
+        </div>
+      </div>
+
       <div className="flex justify-between items-center">
         <div className="text-[3rem] font-bold z-20 text-white">{year}</div>
         {values.label && (
@@ -42,7 +73,7 @@ const MinimalSlate = () => {
         {values.titleAccent && (
           <p
             className="text-[6rem] leading-none font-bold mt-3 text-white"
-            style={{ color: accentColor }}
+            style={{ color: themeColor }}
           >
             {values.titleAccent}
           </p>
@@ -74,4 +105,4 @@ const MinimalSlate = () => {
   );
 };
 
-export default MinimalSlate;
+export default AngledCanvas;

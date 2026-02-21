@@ -1,29 +1,44 @@
-import { DEFAULT_COLOR } from '@/components/ColorInput';
+import { DEFAULT_COLOR } from '@/components/Input/ColorInput';
 import { useCover } from '@/hooks/useCover';
 import { convertIconTitleToIcon } from '@/lib/utils';
 
-const accent = (values: Record<string, string | string[] | boolean>) =>
-  (values.accentColor as string) || DEFAULT_COLOR;
+const theme = (values: Record<string, string | string[] | boolean>) =>
+  (values.themeColor as string) || DEFAULT_COLOR;
 
-const ExempleTemplate = () => {
+const SplitGradient = () => {
   const { values } = useCover();
   const year = new Date().getFullYear();
   const iconTitles = Array.isArray(values.icons) ? values.icons : [];
-  const accentColor = accent(values);
+  const themeColor = theme(values);
   return (
     <div className="w-full h-full relative flex flex-col justify-between p-15 overflow-hidden bg-black">
       <div
         className="absolute top-0 left-0 w-full h-full z-10"
         style={{
-          background: `linear-gradient(to bottom, ${accentColor} 0%, transparent 100%)`,
+          background: `linear-gradient(to right, rgba(0,0,0,0.7) 15%, ${themeColor} 100%)`,
         }}
       />
+
       <div
         className="absolute top-0 left-0 w-full h-full blur-xs bg-cover bg-center"
         style={{
           backgroundImage: `url(${values.image || '/placeholder.svg'})`,
         }}
       />
+
+      <div className="absolute left-[67%] bottom-[-400px] z-20 w-[2000px]">
+        <div className="relative aspect-video">
+          <div
+            className="absolute inset-0 overflow-hidden rounded-xl bg-cover bg-center shadow-xl/80 ring-1 ring-white/10"
+            style={{
+              transform: 'rotate(10deg)',
+              backgroundImage: `url(${values.image || '/placeholder.svg'})`,
+              backgroundPosition: values.image ? 'top left' : 'center',
+            }}
+          />
+        </div>
+      </div>
+
       <div className="flex justify-between items-center">
         <div className="text-[3rem] font-bold z-20 text-white">{year}</div>
         {values.label && (
@@ -42,7 +57,7 @@ const ExempleTemplate = () => {
         {values.titleAccent && (
           <p
             className="text-[6rem] leading-none font-bold mt-3 text-white"
-            style={{ color: accentColor }}
+            style={{ color: themeColor }}
           >
             {values.titleAccent}
           </p>
@@ -74,4 +89,4 @@ const ExempleTemplate = () => {
   );
 };
 
-export default ExempleTemplate;
+export default SplitGradient;

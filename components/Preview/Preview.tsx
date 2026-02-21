@@ -1,4 +1,10 @@
 import {
+  ExportCoverBtn,
+  PreviewAnimationSwitch,
+  ResetPreviewBtn,
+  ZoomPreview,
+} from '@/components/Preview';
+import {
   Empty,
   EmptyHeader,
   EmptyMedia,
@@ -6,13 +12,11 @@ import {
 } from '@/components/ui/empty';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useCover } from '@/hooks/useCover';
+import { useCurrentTemplate } from '@/hooks/useCurrentTemplate';
 import { cn } from '@/lib/utils';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { SquircleDashed } from 'lucide-react';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import Export from './Export';
-import Reset from './Reset';
-import ZoomPreview from './ZoomPreview';
 
 const TILT_SPRING = { damping: 45, stiffness: 100, mass: 1 };
 const HOVER_SPRING = { damping: 35, stiffness: 300, mass: 0.3 };
@@ -24,7 +28,8 @@ const DESIGN = { w: 1280, h: 720 };
 
 const Preview = () => {
   const isMobile = useIsMobile();
-  const { zoom, template } = useCover();
+  const template = useCurrentTemplate();
+  const { zoom, animation } = useCover();
   const ref = useRef<HTMLDivElement>(null);
   const exportRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -42,6 +47,14 @@ const Preview = () => {
       rotateY.set(0);
     }
   }, [zoom, isMobile, zoomMotion, hoverScale, rotateX, rotateY]);
+
+  useEffect(() => {
+    if (!animation) {
+      hoverScale.set(1);
+      rotateX.set(0);
+      rotateY.set(0);
+    }
+  }, [animation, hoverScale, rotateX, rotateY]);
 
   const updateScale = () => {
     const el = containerRef.current;
@@ -69,7 +82,7 @@ const Preview = () => {
   );
 
   const setHover = (entered: boolean) => {
-    if (isMobile) return;
+    if (isMobile || !animation) return;
     hoverScale.set(entered ? HOVER_SCALE : IDLE_SCALE);
     if (!entered) {
       rotateX.set(0);
@@ -78,7 +91,7 @@ const Preview = () => {
   };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (isMobile || !ref.current) return;
+    if (isMobile || !animation || !ref.current) return;
     const { left, top, width, height } = ref.current.getBoundingClientRect();
     const x = (e.clientX - left - width / 2) / (width / 2);
     const y = (e.clientY - top - height / 2) / (height / 2);
@@ -88,14 +101,14 @@ const Preview = () => {
 
   return (
     <div className="flex flex-1 flex-col gap-2">
-      <p className="text-sm uppercase tracking-wider text-muted-foreground/50 font-departure">
+      <h3 className="text-sm uppercase tracking-wider text-muted-foreground/50 font-departure">
         Preview
-      </p>
+      </h3>
 
       <div
         ref={ref}
         className={
-          'border rounded-lg flex-1 flex flex-col items-center justify-center relative bg-card/50 p-4 overflow-hidden cursor-crosshair'
+          'border rounded-lg flex-1 flex flex-col items-center justify-center relative bg-card/50 p-4 overflow-hidden'
         }
         style={{ perspective: '800px' }}
         onMouseMove={handleMouseMove}
@@ -105,17 +118,22 @@ const Preview = () => {
         <div className="opacity-10 w-full h-full -z-10 absolute bg-[radial-gradient(var(--muted-foreground)_1px,transparent_0)] bg-size-[10px_10px]" />
 
         <div className="absolute top-5 right-5 flex items-center gap-4 z-10">
-          <Reset />
-          <Export previewRef={exportRef} />
+          <ResetPreviewBtn />
+          <ExportCoverBtn previewRef={exportRef} />
         </div>
 
         <div className="absolute bottom-5 right-5 z-10">
           <ZoomPreview />
         </div>
 
+        <div className="absolute bottom-5 left-5 z-10 flex items-center gap-2">
+          <PreviewAnimationSwitch />
+        </div>
+
         <motion.div
           className="will-change-transform flex flex-col gap-5 relative w-full max-w-full min-h-0 min-w-0 flex-1 overflow-hidden"
           style={{ scale, rotateX, rotateY }}
+          transition={animation ? { duration: 0 } : undefined}
         >
           <div className="flex-1 min-h-0 flex items-center justify-center @container-[size]">
             <div className="flex w-full flex-col items-center gap-5">
@@ -128,7 +146,7 @@ const Preview = () => {
                   !template && 'border-dashed',
                 )}
               >
-                <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+                <div className="absolute inset-0 flex items-center justify-center overflow-hidden select-none">
                   <div
                     ref={exportRef}
                     className={cn('origin-center', template && 'shrink-0')}

@@ -1,55 +1,27 @@
-import { DEFAULT_COLOR } from '@/components/ColorInput';
+import { DEFAULT_COLOR } from '@/components/Input/ColorInput';
 import { useCover } from '@/hooks/useCover';
 import { convertIconTitleToIcon } from '@/lib/utils';
 
-const accent = (values: Record<string, string | string[] | boolean>) =>
-  (values.accentColor as string) || DEFAULT_COLOR;
+const theme = (values: Record<string, string | string[] | boolean>) =>
+  (values.themeColor as string) || DEFAULT_COLOR;
 
-const FloatingLayers = () => {
+const GlowSpotlight = () => {
   const { values } = useCover();
   const year = new Date().getFullYear();
   const iconTitles = Array.isArray(values.icons) ? values.icons : [];
-  const accentColor = accent(values);
+  const themeColor = theme(values);
   return (
     <div className="w-full h-full relative flex flex-col justify-between p-15 overflow-hidden bg-black">
-      <div
-        className="absolute top-0 left-0 w-full h-full z-10"
-        style={{
-          background: `linear-gradient(to right, rgba(0,0,0,0.7), transparent 40%, ${accentColor} 100%)`,
-        }}
-      />
-
-      <div className="absolute top-0 left-0 w-full h-full z-10 bg-linear-to-r from-black/50 to-transparent" />
+      <div className="absolute top-0 left-0 w-full h-full z-20 bg-linear-to-t from-black via-transparent to-transparent" />
 
       <div
-        className="absolute top-0 left-0 w-full h-full blur-xs bg-cover"
+        className="absolute bottom-0 left-1/2 z-10 w-[1280px] h-[720px] rounded-[32px] bg-black bg-cover bg-top -translate-x-1/2 translate-y-[20%] scale-[0.85]"
         style={{
           backgroundImage: `url(${values.image || '/placeholder.svg'})`,
-          backgroundPosition: values.image ? 'top left' : 'center',
+          boxShadow: `0 0 100px 16px ${themeColor}, 0 0 0 10px ${themeColor}`,
+          backgroundPosition: values.image ? 'top' : 'center',
         }}
       />
-
-      <div className="absolute -right-[150px] bottom-[-200px] z-20 w-[900px]">
-        <div className="relative aspect-video">
-          <div
-            className="absolute inset-0 rounded-xl bg-[#121214] ring-1 ring-white/10 shadow-xl/25 bg-cover"
-            style={{
-              transform: 'rotate(7deg) translate(100px, -275px)',
-              backgroundImage: `url(${values.imageSecondary || '/placeholder.svg'})`,
-              backgroundPosition: values.imageSecondary ? 'top left' : 'center',
-            }}
-          />
-
-          <div
-            className="absolute inset-0 overflow-hidden rounded-xl bg-cover bg-center shadow-xl/50 ring-1 ring-white/10"
-            style={{
-              transform: 'rotate(7deg)',
-              backgroundImage: `url(${values.image || '/placeholder.svg'})`,
-              backgroundPosition: values.image ? 'top left' : 'center',
-            }}
-          />
-        </div>
-      </div>
 
       <div className="flex justify-between items-center">
         <div className="text-[3rem] font-bold z-20 text-white">{year}</div>
@@ -60,7 +32,7 @@ const FloatingLayers = () => {
         )}
       </div>
 
-      <div className="z-20">
+      <div className="z-20 flex flex-col items-center justify-center text-center">
         {values.titleMain && (
           <p className="text-[6rem] leading-none font-bold text-white">
             {values.titleMain}
@@ -69,13 +41,13 @@ const FloatingLayers = () => {
         {values.titleAccent && (
           <p
             className="text-[6rem] leading-none font-bold mt-3 text-white"
-            style={{ color: accentColor }}
+            style={{ color: themeColor }}
           >
             {values.titleAccent}
           </p>
         )}
         {iconTitles.length > 0 && (
-          <div className="flex flex-wrap gap-7 mt-10">
+          <div className="flex flex-wrap gap-7 mt-10 justify-center">
             {iconTitles.map((title: string) => {
               const slug = convertIconTitleToIcon(title);
               return (
@@ -101,4 +73,4 @@ const FloatingLayers = () => {
   );
 };
 
-export default FloatingLayers;
+export default GlowSpotlight;

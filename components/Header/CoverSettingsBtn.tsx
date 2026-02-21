@@ -1,3 +1,6 @@
+import { GitGlowLogo } from '@/components/Header';
+import { SettingsContent } from '@/components/Settings';
+import { Button } from '@/components/ui/button';
 import {
   Sheet,
   SheetContent,
@@ -6,10 +9,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { PanelLeft } from 'lucide-react';
-import Icon from './Icon';
-import SettingsContent from './SettingsContent';
-import { Button } from './ui/button';
-const Settings = () => {
+const CoverSettingsBtn = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -19,19 +19,16 @@ const Settings = () => {
       </SheetTrigger>
       <SheetContent side="left" className="flex flex-col p-0">
         <SheetHeader className="shrink-0 px-4 py-4">
-          <SheetTitle className="flex items-center gap-2">
-            <Icon width={25} height={25} />
-            <span className="text-lg font-medium font-instrument tracking-wider">
-              GitGlow
-            </span>
+          <SheetTitle>
+            <GitGlowLogo />
           </SheetTitle>
         </SheetHeader>
-        <div className="flex-1 min-h-0 flex flex-col overflow-hidden px-4 py-4">
+        <aside className="flex-1 min-h-0 flex flex-col overflow-hidden px-4 py-4">
           <SettingsContent />
-        </div>
+        </aside>
       </SheetContent>
     </Sheet>
   );
 };
 
-export default Settings;
+export default CoverSettingsBtn;

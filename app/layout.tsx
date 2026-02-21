@@ -1,4 +1,4 @@
-import Header from '@/components/Header';
+import Header from '@/components/Header/Header';
 import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { ThemeProvider } from '@/provider/theme-provider';
@@ -55,14 +55,14 @@ export default function RootLayout({
           attribute="class"
           defaultTheme="system"
           enableSystem
-          // disableTransitionOnChange
+          disableTransitionOnChange
         >
           <TooltipProvider>
-            <div className="h-screen overflow-hidden p-5 sm:p-10 flex flex-col">
+            <div className="h-screen overflow-hidden p-5 sm:p-10 flex flex-col gap-5">
               <Header />
-              <div className="flex-1  overflow-hidden flex flex-col">
+              <main className="flex-1  overflow-hidden flex flex-col">
                 {children}
-              </div>
+              </main>
             </div>
             <Toaster position="bottom-center" />
           </TooltipProvider>

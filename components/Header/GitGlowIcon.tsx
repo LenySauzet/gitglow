@@ -4,7 +4,7 @@ type IconProps = {
   fill?: string;
 };
 
-const Icon = ({
+const GitGlowIcon = ({
   width = 100,
   height = 96,
   fill = 'currentColor',
@@ -28,4 +28,4 @@ const Icon = ({
   );
 };
 
-export default Icon;
+export default GitGlowIcon;

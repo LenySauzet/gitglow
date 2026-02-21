@@ -1,3 +1,5 @@
+import { ColorInput, IconInput, ImageInput } from '@/components/Input';
+import { PreviewThemeModeToggle } from '@/components/Settings';
 import {
   Combobox,
   ComboboxContent,
@@ -13,21 +15,20 @@ import {
   FieldLabel,
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
-import { useCover } from '@/hooks/useCover';
-import { ColorInput } from './ColorInput';
-import { IconInput } from './IconInput';
-import ImageInput from './ImageInput';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from './ui/select';
-import { Textarea } from './ui/textarea';
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { useCover } from '@/hooks/useCover';
+import { useCurrentTemplate } from '@/hooks/useCurrentTemplate';
 
-const TemplateForm = () => {
-  const { template, values, setValues } = useCover();
+const SettingsForm = () => {
+  const template = useCurrentTemplate();
+  const { values, setValues } = useCover();
 
   if (!template)
     return (
@@ -115,8 +116,9 @@ const TemplateForm = () => {
           </Field>
         ))}
       </FieldGroup>
+      <PreviewThemeModeToggle />
     </div>
   );
 };
 
-export default TemplateForm;
+export default SettingsForm;

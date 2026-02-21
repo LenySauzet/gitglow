@@ -1,42 +1,56 @@
-import { DEFAULT_COLOR } from "@/components/ColorInput";
-import { Template, templates } from "@/data/templates";
+import { DEFAULT_COLOR } from "@/components/Input/ColorInput";
+import {
+  templateDefinitions,
+  type TemplateDefinition,
+} from "@/data/template-definitions";
 import { create } from "zustand";
 
 type CoverState = {
-  template: Template | null;
-  setTemplate: (templateId: Template['id']) => void;
+  templateId: string | null;
+  setTemplate: (templateId: TemplateDefinition["id"]) => void;
   values: Record<string, string | string[] | boolean>;
   setValues: (values: Record<string, string | string[] | boolean>) => void;
   zoom: number;
   setZoom: (zoom: number) => void;
   reset: () => void;
+  animation: boolean;
+  setAnimation: (animation: boolean) => void;
+  theme: 'dark' | 'light';
+  setTheme: (theme: 'dark' | 'light') => void;
 };
 
 export const useCover = create<CoverState>((set) => ({
-  template: null,
-  // setTemplate: (templateId: Template['id']) => set({ template: templates.find((template) => template.id === templateId) }),
-  setTemplate: (templateId: Template['id']) => {
-    const template = templates.find((t) => t.id === templateId) ?? null;
+  templateId: null,
+  setTemplate: (templateId: TemplateDefinition["id"]) => {
+    const definition =
+      templateDefinitions.find((t) => t.id === templateId) ?? null;
     const values: Record<string, string | string[] | boolean> = {};
-    if (template?.fields) {
-      for (const field of template.fields) {
-        if (field.type === 'icon') {
+    if (definition?.fields) {
+      for (const field of definition.fields) {
+        if (field.type === "icon") {
           values[field.name] = [];
-        } else if (field.type === 'color') {
+        } else if (field.type === "color") {
           values[field.name] = DEFAULT_COLOR;
         } else {
           values[field.name] =
-            field.type === 'text' && 'defaultValue' in field && field.defaultValue != null
+            field.type === "text" &&
+            "defaultValue" in field &&
+            field.defaultValue != null
               ? field.defaultValue
-              : '';
+              : "";
         }
       }
     }
-    return set({ template, values });
+    return set({ templateId, values });
   },
   values: {},
-  setValues: (values: Record<string, string | string[] | boolean>) => set({ values }),
+  setValues: (values: Record<string, string | string[] | boolean>) =>
+    set({ values }),
   zoom: 100,
   setZoom: (zoom: number) => set({ zoom }),
-  reset: () => set({ template: null, zoom: 100, values: {} }),
+  reset: () => set({ templateId: null, zoom: 100, values: {} }),
+  animation: true,
+  setAnimation: (animation: boolean) => set({ animation }),
+  theme: 'dark',
+  setTheme: (theme) => set({ theme }),
 }));

@@ -3,19 +3,18 @@
 import { categories, templates as templatesData } from '@/data/templates';
 import { useCover } from '@/hooks/useCover';
 import { cn } from '@/lib/utils';
-import { useTheme } from 'next-themes';
 import Image from 'next/image';
-const Templates = () => {
-  const { template, setTemplate } = useCover();
-  const { theme } = useTheme();
+
+const TemplateList = () => {
+  const { templateId, setTemplate } = useCover();
   return (
     <>
       {categories.map((category) => (
         <div key={category.id}>
           <div className="sticky top-4 z-1 mt-4">
-            <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider flex items-center gap-2">
+            <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider flex items-center gap-2">
               <category.icon size={16} /> {category.name}
-            </h3>
+            </h4>
           </div>
 
           <div className="grid grid-cols-2 gap-7 items-start mt-2 mb-7">
@@ -25,9 +24,9 @@ const Templates = () => {
                 <div
                   key={templateData.id}
                   className={cn(
-                    'flex flex-col gap-2 border rounded-md p-1 cursor-pointer hover:bg-muted/50 opacity-75 hover:opacity-100 transition-all group text-muted-foreground/75',
-                    templateData.id === template?.id &&
-                      'bg-muted/50 opacity-100 border-primary/75 text-primary'
+                    'flex flex-col gap-2 border rounded-md p-1 cursor-pointer hover:bg-muted/50 transition-all group text-muted-foreground/75',
+                    templateData.id === templateId &&
+                      'bg-muted/50 opacity-100 border-primary/75 text-primary',
                   )}
                   onClick={() => setTemplate(templateData.id)}
                 >
@@ -57,4 +56,4 @@ const Templates = () => {
   );
 };
 
-export default Templates;
+export default TemplateList;
