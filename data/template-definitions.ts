@@ -165,22 +165,22 @@ export const templateDefinitions: TemplateDefinition[] = [
       },
     ],
   },
-  {
-    id: 'multi-device-grid',
-    name: 'Multi Device Grid',
-    categoryId: 2,
-    fields: [],
-  },
-  {
-    id: 'single-device-hero',
-    name: 'Single Device Hero',
-    categoryId: 2,
-    fields: [],
-  },
-  {
-    id: 'triple-device-showcase',
-    name: 'Triple Device Showcase',
-    categoryId: 2,
-    fields: [],
-  },
+  // {
+  //   id: 'multi-device-grid',
+  //   name: 'Multi Device Grid',
+  //   categoryId: 2,
+  //   fields: [],
+  // },
+  // {
+  //   id: 'single-device-hero',
+  //   name: 'Single Device Hero',
+  //   categoryId: 2,
+  //   fields: [],
+  // },
+  // {
+  //   id: 'triple-device-showcase',
+  //   name: 'Triple Device Showcase',
+  //   categoryId: 2,
+  //   fields: [],
+  // },
 ];
