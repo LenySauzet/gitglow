@@ -13,6 +13,7 @@ import {
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useCover } from '@/hooks/useCover';
 import { useCurrentTemplate } from '@/hooks/useCurrentTemplate';
+import { loadFont } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { SquircleDashed } from 'lucide-react';
@@ -29,7 +30,12 @@ const DESIGN = { w: 1280, h: 720 };
 const Preview = () => {
   const isMobile = useIsMobile();
   const template = useCurrentTemplate();
-  const { zoom, animation } = useCover();
+  const { zoom, animation, lightMode, font } = useCover();
+
+  useEffect(() => {
+    if (font) loadFont(font);
+  }, [font]);
+
   const ref = useRef<HTMLDivElement>(null);
   const exportRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -149,7 +155,11 @@ const Preview = () => {
                 <div className="absolute inset-0 flex items-center justify-center overflow-hidden select-none">
                   <div
                     ref={exportRef}
-                    className={cn('origin-center', template && 'shrink-0')}
+                    className={cn(
+                      'origin-center preview-theme-container',
+                      template && 'shrink-0',
+                      lightMode && 'light-preview',
+                    )}
                     style={
                       template
                         ? {

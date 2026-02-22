@@ -1,5 +1,6 @@
 import {
   AngledCanvas,
+  DualDeviceSymmetry,
   ExempleTemplate,
   FloatingLayers,
   GlowSpotlight,
@@ -55,7 +56,7 @@ const COMPONENT_MAP: Record<string, React.ComponentType> = {
   'angled-canvas': AngledCanvas,
   'floating-layers': FloatingLayers,
   'split-gradient': SplitGradient,
-  'dual-device-symmetry': ExempleTemplate,
+  'dual-device-symmetry': DualDeviceSymmetry,
   'multi-device-grid': ExempleTemplate,
   'single-device-hero': ExempleTemplate,
   'triple-device-showcase': ExempleTemplate,

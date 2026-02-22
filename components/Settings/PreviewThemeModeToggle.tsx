@@ -11,14 +11,14 @@ import { useCover } from '@/hooks/useCover';
 import { createShortcutHandler } from '@/lib/keyboard-shortcut';
 import { useCallback, useEffect } from 'react';
 
-const PREVIEW_THEME_MODE_TOGGLE_KEYBOARD_SHORTCUT = 'd';
+const PREVIEW_THEME_MODE_TOGGLE_KEYBOARD_SHORTCUT = 'f';
 
 const PreviewThemeModeToggle = () => {
-  const { theme, setTheme } = useCover();
+  const { lightMode, setLightMode } = useCover();
 
   const handleToggle = useCallback(() => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
-  }, [theme, setTheme]);
+    setLightMode(!lightMode);
+  }, [lightMode, setLightMode]);
 
   useEffect(() => {
     const handleKeyboardShortcut = createShortcutHandler((event) => {
@@ -39,10 +39,14 @@ const PreviewThemeModeToggle = () => {
           <FieldContent>
             <FieldTitle>Light Mode</FieldTitle>
             <FieldDescription>
-              Switch to light theme appearance
+              Change the preview to light theme
             </FieldDescription>
           </FieldContent>
-          <Switch id="switch-light-mode" />
+          <Switch
+            id="switch-light-mode"
+            checked={lightMode}
+            onCheckedChange={setLightMode}
+          />
         </Field>
       </FieldLabel>
     </FieldGroup>

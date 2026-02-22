@@ -37,6 +37,7 @@ export type SelectField = BaseField & {
   type: 'select';
   placeholder?: string;
   options?: string[];
+  defaultValue?: string;
 };
 
 export type TemplateField =
@@ -146,7 +147,23 @@ export const templateDefinitions: TemplateDefinition[] = [
     id: 'dual-device-symmetry',
     name: 'Dual Device Symmetry',
     categoryId: 2,
-    fields: [],
+    fields: [
+      ...commonFields,
+      {
+        name: 'imageSecondary',
+        label: 'Image Secondary',
+        description: 'This is the secondary image of the template',
+        type: 'image',
+      },
+      {
+        name: 'gridOrDot',
+        label: 'Grid or Dot',
+        description: 'This is the grid or dot of the template',
+        type: 'select',
+        options: ['grid', 'dot'],
+        defaultValue: 'grid',
+      },
+    ],
   },
   {
     id: 'multi-device-grid',

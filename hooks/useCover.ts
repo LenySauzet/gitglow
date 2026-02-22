@@ -15,8 +15,10 @@ type CoverState = {
   reset: () => void;
   animation: boolean;
   setAnimation: (animation: boolean) => void;
-  theme: 'dark' | 'light';
-  setTheme: (theme: 'dark' | 'light') => void;
+  lightMode: boolean;
+  setLightMode: (lightMode: boolean) => void;
+  font: string;
+  setFont: (font: string) => void;
 };
 
 export const useCover = create<CoverState>((set) => ({
@@ -31,6 +33,8 @@ export const useCover = create<CoverState>((set) => ({
           values[field.name] = [];
         } else if (field.type === "color") {
           values[field.name] = DEFAULT_COLOR;
+        } else if (field.type === "select") {
+          values[field.name] = field.defaultValue ?? "";
         } else {
           values[field.name] =
             field.type === "text" &&
@@ -48,9 +52,12 @@ export const useCover = create<CoverState>((set) => ({
     set({ values }),
   zoom: 100,
   setZoom: (zoom: number) => set({ zoom }),
-  reset: () => set({ templateId: null, zoom: 100, values: {} }),
+  reset: () =>
+    set({ templateId: null, zoom: 100, values: {}, font: "" }),
   animation: true,
   setAnimation: (animation: boolean) => set({ animation }),
-  theme: 'dark',
-  setTheme: (theme) => set({ theme }),
+  lightMode: false,
+  setLightMode: (lightMode) => set({ lightMode }),
+  font: "",
+  setFont: (font) => set({ font }),
 }));

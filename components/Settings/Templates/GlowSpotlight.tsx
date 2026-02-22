@@ -1,32 +1,41 @@
 import { DEFAULT_COLOR } from '@/components/Input/ColorInput';
 import { useCover } from '@/hooks/useCover';
-import { convertIconTitleToIcon } from '@/lib/utils';
+import { cn, convertIconTitleToIcon } from '@/lib/utils';
 
 const theme = (values: Record<string, string | string[] | boolean>) =>
   (values.themeColor as string) || DEFAULT_COLOR;
 
 const GlowSpotlight = () => {
-  const { values } = useCover();
+  const { values, font } = useCover();
   const year = new Date().getFullYear();
   const iconTitles = Array.isArray(values.icons) ? values.icons : [];
   const themeColor = theme(values);
   return (
-    <div className="w-full h-full relative flex flex-col justify-between p-15 overflow-hidden bg-black">
-      <div className="absolute top-0 left-0 w-full h-full z-20 bg-linear-to-t from-black via-transparent to-transparent" />
+    <div
+      className="w-full h-full relative flex flex-col justify-between p-15 overflow-hidden bg-preview-background"
+      style={font ? { fontFamily: font } : undefined}
+    >
+      <div className="absolute top-0 left-0 w-full h-full z-20 bg-linear-to-t from-preview-background via-transparent to-transparent" />
 
       <div
-        className="absolute bottom-0 left-1/2 z-10 w-[1280px] h-[720px] rounded-[32px] bg-black bg-cover bg-top -translate-x-1/2 translate-y-[20%] scale-[0.85]"
+        className={cn(
+          'absolute bottom-0 left-1/2 z-10 w-[1280px] h-[720px] rounded-[32px] bg-preview-background bg-cover bg-top -translate-x-1/2 translate-y-[20%] scale-[0.85]',
+          !values.image && 'bg-preview-placeholder bg-center',
+        )}
         style={{
-          backgroundImage: `url(${values.image || '/placeholder.svg'})`,
           boxShadow: `0 0 100px 16px ${themeColor}, 0 0 0 10px ${themeColor}`,
-          backgroundPosition: values.image ? 'top' : 'center',
+          ...(values.image && {
+            backgroundImage: `url(${values.image})`,
+          }),
         }}
       />
 
       <div className="flex justify-between items-center">
-        <div className="text-[3rem] font-bold z-20 text-white">{year}</div>
+        <div className="text-[3rem] font-bold z-20 text-preview-foreground">
+          {year}
+        </div>
         {values.label && (
-          <div className="text-[3rem] font-bold z-20 text-white">
+          <div className="text-[3rem] font-bold z-20 text-preview-foreground">
             {values.label}
           </div>
         )}
@@ -34,13 +43,13 @@ const GlowSpotlight = () => {
 
       <div className="z-20 flex flex-col items-center justify-center text-center">
         {values.titleMain && (
-          <p className="text-[6rem] leading-none font-bold text-white">
+          <p className="text-[6rem] leading-none font-bold text-preview-foreground">
             {values.titleMain}
           </p>
         )}
         {values.titleAccent && (
           <p
-            className="text-[6rem] leading-none font-bold mt-3 text-white"
+            className="text-[6rem] leading-none font-bold mt-3 text-preview-foreground"
             style={{ color: themeColor }}
           >
             {values.titleAccent}
@@ -53,7 +62,7 @@ const GlowSpotlight = () => {
               return (
                 <span
                   key={slug}
-                  className="inline-block size-[75px] shrink-0 bg-white"
+                  className="inline-block size-[75px] shrink-0 bg-preview-icon"
                   style={{
                     WebkitMask: `url(/icons/${slug}.svg) no-repeat center`,
                     WebkitMaskSize: 'contain',

@@ -16,7 +16,9 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { useCover } from '@/hooks/useCover';
 import { useCurrentTemplate } from '@/hooks/useCurrentTemplate';
+import { getFontEmbedCSS } from '@/lib/fonts';
 import { createShortcutHandler } from '@/lib/keyboard-shortcut';
 import { toJpeg, toPng, toSvg } from 'html-to-image';
 import {
@@ -63,6 +65,7 @@ type ExportProps = {
 
 const ExportCoverBtn = ({ previewRef }: ExportProps) => {
   const template = useCurrentTemplate();
+  const { font } = useCover();
   const [isExporting, setIsExporting] = useState(false);
   const [format, setFormat] = useState<ExportFormatId>('png');
 
@@ -73,10 +76,20 @@ const ExportCoverBtn = ({ previewRef }: ExportProps) => {
       setIsExporting(true);
 
       try {
+        let fontEmbedCSS: string | undefined;
+        if (font) {
+          try {
+            fontEmbedCSS = await getFontEmbedCSS(font);
+          } catch (e) {
+            console.warn('Export: font embed failed, using fallback', e);
+          }
+        }
         const opts = {
           ...baseOptions,
           canvasWidth: EXPORT_SIZE.width,
           canvasHeight: EXPORT_SIZE.height,
+          ...(fontEmbedCSS && { fontEmbedCSS }),
+          ...(!fontEmbedCSS && { skipFonts: true }),
         };
 
         let dataUrl: string;
@@ -109,7 +122,7 @@ const ExportCoverBtn = ({ previewRef }: ExportProps) => {
         setIsExporting(false);
       }
     },
-    [previewRef, template, format],
+    [previewRef, template, format, font],
   );
 
   useEffect(() => {

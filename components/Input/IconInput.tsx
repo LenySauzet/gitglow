@@ -59,12 +59,12 @@ function SortableChip({ value }: { value: string }) {
   };
 
   return (
-    <div ref={setNodeRef} style={style} className="flex items-center">
-      <ComboboxChip className="flex items-center gap-1 pr-1.5 cursor-grab active:cursor-grabbing">
+    <div ref={setNodeRef} style={style} className="flex items-center cursor-default">
+      <ComboboxChip className="flex items-center gap-1 pr-1.5">
         <span
           {...attributes}
           {...listeners}
-          className="inline-flex items-center text-muted-foreground/60 hover:text-muted-foreground"
+          className="inline-flex items-center text-muted-foreground/60 hover:text-muted-foreground cursor-grab active:cursor-grabbing"
           aria-label={`Drag to reorder ${value}`}
         >
           <GripVertical className="size-3" />

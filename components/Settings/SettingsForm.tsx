@@ -1,4 +1,9 @@
-import { ColorInput, IconInput, ImageInput } from '@/components/Input';
+import {
+  ColorInput,
+  FontInput,
+  IconInput,
+  ImageInput,
+} from '@/components/Input';
 import { PreviewThemeModeToggle } from '@/components/Settings';
 import {
   Combobox,
@@ -42,6 +47,10 @@ const SettingsForm = () => {
       <p className="text-sm uppercase tracking-wider text-muted-foreground/50 font-departure">
         {template?.name}
       </p>
+      <PreviewThemeModeToggle />
+
+      <FontInput />
+
       <FieldGroup>
         {template?.fields.map((field) => (
           <Field key={field.name}>
@@ -116,7 +125,6 @@ const SettingsForm = () => {
           </Field>
         ))}
       </FieldGroup>
-      <PreviewThemeModeToggle />
     </div>
   );
 };
