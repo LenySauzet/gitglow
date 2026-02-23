@@ -169,7 +169,21 @@ export const templateDefinitions: TemplateDefinition[] = [
   //   id: 'multi-device-grid',
   //   name: 'Multi Device Grid',
   //   categoryId: 2,
-  //   fields: [],
+  //   fields: [
+  //     ...commonFields,
+  //     {
+  //       name: 'imageSecondary',
+  //       label: 'Image Secondary',
+  //       description: 'This is the secondary image of the template',
+  //       type: 'image',
+  //     },
+  //     {
+  //       name: 'imageTertiary',
+  //       label: 'Image Tertiary',
+  //       description: 'This is the tertiary image of the template',
+  //       type: 'image',
+  //     }
+  //   ],
   // },
   // {
   //   id: 'single-device-hero',

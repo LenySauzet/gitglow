@@ -5,6 +5,7 @@ import {
   FloatingLayers,
   GlowSpotlight,
   MinimalSlate,
+  MultiDeviceGrid,
   PerspectiveStack,
   SplitGradient,
 } from '@/components/Settings';
@@ -21,8 +22,8 @@ export type {
   ImageField,
   SelectField,
   TemplateField,
-  TextField,
   TextareaField,
+  TextField,
 } from '@/data/template-definitions';
 
 export type Template = TemplateDefinition & {
@@ -46,7 +47,6 @@ export const categories: Category[] = [
     name: 'Mobile',
     icon: Smartphone,
   },
-
 ];
 
 const COMPONENT_MAP: Record<string, React.ComponentType> = {
@@ -57,7 +57,7 @@ const COMPONENT_MAP: Record<string, React.ComponentType> = {
   'floating-layers': FloatingLayers,
   'split-gradient': SplitGradient,
   'dual-device-symmetry': DualDeviceSymmetry,
-  'multi-device-grid': ExempleTemplate,
+  'multi-device-grid': MultiDeviceGrid,
   'single-device-hero': ExempleTemplate,
   'triple-device-showcase': ExempleTemplate,
 };

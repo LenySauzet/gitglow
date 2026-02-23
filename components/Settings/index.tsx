@@ -10,6 +10,7 @@ import GlowSpotlight from '@/components/Settings/Templates/GlowSpotlight';
 import MinimalSlate from '@/components/Settings/Templates/MinimalSlate';
 import PerspectiveStack from '@/components/Settings/Templates/PerspectiveStack';
 import SplitGradient from '@/components/Settings/Templates/SplitGradient';
+import MultiDeviceGrid from './Templates/MultiDeviceGrid';
 
 export {
   AngledCanvas,
@@ -24,4 +25,5 @@ export {
   SettingsForm,
   SplitGradient,
   TemplateList,
+  MultiDeviceGrid,
 };
