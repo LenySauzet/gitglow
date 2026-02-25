@@ -30,23 +30,72 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { useCover } from '@/hooks/useCover';
 import { useCurrentTemplate } from '@/hooks/useCurrentTemplate';
+import { SquircleDashed } from 'lucide-react';
+import Image from 'next/image';
+import { Empty, EmptyHeader, EmptyMedia, EmptyTitle } from '../ui/empty';
+import CleanValuesBtn from './CleanValuesBtn';
+import ResetToDefaultValuesBtn from './ResetToDefaultValuesBtn';
 
 const SettingsForm = () => {
   const template = useCurrentTemplate();
-  const { values, setValues } = useCover();
+  const { values, setValues, setShowSettings } = useCover();
 
   if (!template)
     return (
-      <p className="text-sm uppercase tracking-wider text-muted-foreground/50 font-departure">
-        No template selected
-      </p>
+      <div className="flex flex-col gap-4 mt-4 h-full">
+        <p className="text-sm uppercase tracking-wider text-muted-foreground/50 font-departure">
+          No template selected
+        </p>
+        <div className="group" onClick={() => setShowSettings(false)}>
+          <div className="group-hover:scale-95 group-hover:opacity-75 transition-all rounded-md  overflow-hidden cursor-pointer shadow-sm aspect-video bg-card border border-dashed">
+            <Empty className="h-full w-full flex items-center justify-center">
+              <EmptyHeader>
+                <EmptyMedia variant="icon">
+                  <SquircleDashed size={24} />
+                </EmptyMedia>
+                <EmptyTitle>Select a template</EmptyTitle>
+              </EmptyHeader>
+            </Empty>
+          </div>
+        </div>
+      </div>
     );
 
   return (
-    <div className="flex flex-col gap-4">
-      <p className="text-sm uppercase tracking-wider text-muted-foreground/50 font-departure">
-        {template?.name}
-      </p>
+    <div className="flex flex-col gap-4 mt-4 relative">
+      <div className="flex items-center justify-between">
+        <p className="text-sm uppercase tracking-wider text-muted-foreground/50 font-departure">
+          {template?.name}
+        </p>
+        <div className="flex items-center gap-1">
+          <ResetToDefaultValuesBtn />
+          <CleanValuesBtn />
+        </div>
+      </div>
+
+      <div
+        key={template.id}
+        className={'group'}
+        onClick={() => setShowSettings(false)}
+      >
+        <div className="border-primary group-hover:scale-95 group-hover:opacity-75 transition-all border rounded-md  overflow-hidden cursor-pointer shadow-sm">
+          <Image
+            src={`/templates/dark/${template.id}.svg`}
+            alt={template.name}
+            width={1280}
+            height={720}
+            className="w-full rounded-md hidden dark:block"
+          />
+          <Image
+            src={`/templates/light/${template.id}.svg`}
+            alt={template.name}
+            width={1280}
+            height={720}
+            className="w-full rounded-md dark:hidden"
+          />
+        </div>
+      </div>
+
       <PreviewThemeModeToggle />
 
       <FontInput />

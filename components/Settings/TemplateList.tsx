@@ -3,12 +3,28 @@
 import { categories, templates as templatesData } from '@/data/templates';
 import { useCover } from '@/hooks/useCover';
 import { cn } from '@/lib/utils';
+import { ChevronLeft } from 'lucide-react';
 import Image from 'next/image';
 
 const TemplateList = () => {
-  const { templateId, setTemplate } = useCover();
+  const { templateId, setTemplate, setShowSettings } = useCover();
+
+  const handleTemplateClick = (templateId: string) => {
+    setTemplate(templateId);
+    setShowSettings(true);
+  };
   return (
-    <>
+    <div className="flex flex-col gap-2 mt-4 h-full">
+      <p
+        className="text-sm uppercase tracking-wider text-muted-foreground/50 font-departure flex items-center gap-1 cursor-pointer group"
+        onClick={() => setShowSettings(true)}
+      >
+        <ChevronLeft
+          size={16}
+          className="group-hover:-translate-x-1 transition-transform"
+        />
+        Go back
+      </p>
       {categories.map((category) => (
         <div key={category.id}>
           <div className="sticky top-4 z-1 mt-4">
@@ -26,9 +42,13 @@ const TemplateList = () => {
                   className={cn(
                     'flex flex-col gap-2 border rounded-md p-1 cursor-pointer hover:bg-muted/50 transition-all group text-muted-foreground/75',
                     templateData.id === templateId &&
-                      'bg-muted/50 opacity-100 border-primary/75 text-primary',
+                      'bg-muted/50 border-primary/75 text-primary opacity-25 cursor-default',
                   )}
-                  onClick={() => setTemplate(templateData.id)}
+                  onClick={() =>
+                    templateData.id === templateId
+                      ? undefined
+                      : handleTemplateClick(templateData.id)
+                  }
                 >
                   <Image
                     src={`/templates/dark/${templateData.id}.svg`}
@@ -52,7 +72,7 @@ const TemplateList = () => {
           </div>
         </div>
       ))}
-    </>
+    </div>
   );
 };
 

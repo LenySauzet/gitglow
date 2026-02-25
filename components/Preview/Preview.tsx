@@ -16,7 +16,7 @@ import { useCurrentTemplate } from '@/hooks/useCurrentTemplate';
 import { loadFont } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { SquircleDashed } from 'lucide-react';
+import { Eye, ScanEye, SquircleDashed } from 'lucide-react';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 const TILT_SPRING = { damping: 45, stiffness: 100, mass: 1 };
@@ -39,7 +39,8 @@ const Preview = () => {
   const ref = useRef<HTMLDivElement>(null);
   const exportRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [contentScale, setContentScale] = useState(1);
+  // Start at 0 to avoid flash: first paint would use scale(1) and show huge/wrong layout until ResizeObserver runs
+  const [contentScale, setContentScale] = useState(0);
   const rotateX = useSpring(useMotionValue(0), TILT_SPRING);
   const rotateY = useSpring(useMotionValue(0), TILT_SPRING);
   const hoverScale = useSpring(IDLE_SCALE, HOVER_SPRING);
@@ -176,9 +177,10 @@ const Preview = () => {
                       <Empty className="h-full w-full flex items-center justify-center">
                         <EmptyHeader>
                           <EmptyMedia variant="icon">
-                            <SquircleDashed size={24} />
+                            
+                            <Eye size={24} />
                           </EmptyMedia>
-                          <EmptyTitle>Select a template</EmptyTitle>
+                          <EmptyTitle>Cover preview</EmptyTitle>
                         </EmptyHeader>
                       </Empty>
                     )}

@@ -16,19 +16,19 @@ const RESET_PREVIEW_KEYBOARD_SHORTCUT = 'z';
 
 const ResetPreviewBtn = () => {
   const [ConfirmDialog, confirm] = useConfirm(
-    'Reset to default values',
-    'You are about to reset to default values',
+    'Reset preview',
+    'This will clear the template, reset zoom, values and font. This cannot be undone.',
   );
-  const { reset } = useCover();
+  const { resetPreview } = useCover();
 
   const handleReset = useCallback(() => {
     confirm().then((ok) => {
       if (ok) {
-        reset();
-        toast.success('Reset to default values');
+        resetPreview();
+        toast.success('Preview reset');
       }
     });
-  }, [reset, confirm]);
+  }, [resetPreview, confirm]);
 
   useEffect(() => {
     const handleKeyboardShortcut = createShortcutHandler((event) => {
@@ -52,7 +52,7 @@ const ResetPreviewBtn = () => {
         </TooltipTrigger>
         <TooltipContent side="bottom">
           <div className="flex items-center gap-2">
-            Reset <Kbd>{RESET_PREVIEW_KEYBOARD_SHORTCUT}</Kbd>
+            Reset all <Kbd>{RESET_PREVIEW_KEYBOARD_SHORTCUT}</Kbd>
           </div>
         </TooltipContent>
       </Tooltip>
