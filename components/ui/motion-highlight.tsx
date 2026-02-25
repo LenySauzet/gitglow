@@ -2,8 +2,8 @@
 
 import * as React from 'react'
 
-import type { Transition } from 'motion/react'
-import { AnimatePresence, motion } from 'motion/react'
+import type { Transition } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 
 import { cn } from '@/lib/utils'
 
