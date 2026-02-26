@@ -33,8 +33,8 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://gitglow.lenysauzet.com'),
   title: 'GitGlow - Cover generator',
   description:
-    'Generate custom GitHub-style covers for your projects with GitGlow.',
-  keywords: ['cover generator', 'github', 'cover', 'gitglow'],
+    'The ultimate open-source tool to craft stunning project covers in seconds — designed for developers who care about first impressions on GitHub, YouTube, and beyond.',
+  keywords: ['cover generator', 'gitglow', 'open source', 'developer tools'],
   authors: [{ name: 'Lény Sauzet', url: 'https://lenysauzet.com' }],
   creator: 'Lény Sauzet',
   publisher: 'Lény Sauzet',
