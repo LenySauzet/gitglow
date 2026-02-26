@@ -1,13 +1,14 @@
 import {
   AngledCanvas,
   DualDeviceSymmetry,
-  ExempleTemplate,
   FloatingLayers,
   GlowSpotlight,
   MinimalSlate,
   MultiDeviceGrid,
   PerspectiveStack,
+  SingleDeviceHero,
   SplitGradient,
+  TripleDeviceShowcase,
 } from '@/components/Settings';
 import type { TemplateDefinition } from '@/data/template-definitions';
 import { templateDefinitions } from '@/data/template-definitions';
@@ -50,16 +51,16 @@ export const categories: Category[] = [
 ];
 
 const COMPONENT_MAP: Record<string, React.ComponentType> = {
-  'minimal-slate': MinimalSlate,
   'perspective-stack': PerspectiveStack,
+  'minimal-slate': MinimalSlate,
   'glow-spotlight': GlowSpotlight,
   'angled-canvas': AngledCanvas,
   'floating-layers': FloatingLayers,
   'split-gradient': SplitGradient,
   'dual-device-symmetry': DualDeviceSymmetry,
   'multi-device-grid': MultiDeviceGrid,
-  'single-device-hero': ExempleTemplate,
-  'triple-device-showcase': ExempleTemplate,
+  'single-device-hero': SingleDeviceHero,
+  'triple-device-showcase': TripleDeviceShowcase,
 };
 
 export const templates: Template[] = templateDefinitions.map((def) => {

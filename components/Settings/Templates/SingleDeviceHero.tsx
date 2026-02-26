@@ -6,7 +6,7 @@ import { convertIconTitleToIcon } from '@/lib/utils';
 const theme = (values: Record<string, string | string[] | boolean>) =>
   (values.themeColor as string) || DEFAULT_COLOR;
 
-const MultiDeviceGrid = () => {
+const SingleDeviceHero = () => {
   const { values, font } = useCover();
   const year = new Date().getFullYear();
   const iconTitles = Array.isArray(values.icons) ? values.icons : [];
@@ -17,10 +17,22 @@ const MultiDeviceGrid = () => {
       style={font ? { fontFamily: font } : undefined}
     >
       <div
-        className="absolute top-0 left-0 w-full h-full z-10"
+        className="pointer-events-none absolute inset-0 z-20 opacity-75"
         style={{
-          background: `linear-gradient(to left, color-mix(in oklch, var(--preview-bg) 70%, transparent), transparent 40%, ${themeColor}60 100%)`,
+          background: `radial-gradient(circle at 100% 100%, ${themeColor} 0%, transparent 40%)`,
         }}
+      />
+      <div
+        className="pointer-events-none absolute inset-0 z-10"
+        style={{
+          background: `radial-gradient(circle at 100% 100%, ${themeColor} 0%, transparent 100%)`,
+        }}
+      />
+
+      <Iphone
+        width={500}
+        src={(values.image as string) ?? undefined}
+        className="absolute top-[175px] right-[125px] z-10"
       />
 
       <div className="flex justify-between items-center">
@@ -32,18 +44,6 @@ const MultiDeviceGrid = () => {
             {values.label}
           </div>
         )}
-      </div>
-      <div className="absolute inset-0 flex justify-end items-center pr-[100px] mask-[linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]">
-        <div className="flex gap-5 items-center shrink-0">
-          <div className="flex flex-col gap-5 translate-y-[50px] items-center">
-            <Iphone width={250} className="shrink-0" src={(values.image as string) ?? undefined} />
-            <Iphone width={250} className="shrink-0" src={(values.imageSecondary as string) ?? undefined} />
-          </div>
-          <div className="flex flex-col gap-5 translate-y-[-50px] items-center">
-            <Iphone width={250} className="shrink-0" src={(values.imageSecondary as string) ?? undefined} />
-            <Iphone width={250} className="shrink-0" src={(values.imageTertiary as string) ?? undefined} />
-          </div>
-        </div>
       </div>
 
       <div className="z-20">
@@ -87,4 +87,4 @@ const MultiDeviceGrid = () => {
   );
 };
 
-export default MultiDeviceGrid;
+export default SingleDeviceHero;

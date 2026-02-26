@@ -100,14 +100,14 @@ const commonFields: TemplateField[] = [
 
 export const templateDefinitions: TemplateDefinition[] = [
   {
-    id: 'minimal-slate',
-    name: 'Minimal Slate',
+    id: 'perspective-stack',
+    name: 'Perspective Stack',
     categoryId: 1,
     fields: [...commonFields],
   },
   {
-    id: 'perspective-stack',
-    name: 'Perspective Stack',
+    id: 'minimal-slate',
+    name: 'Minimal Slate',
     categoryId: 1,
     fields: [...commonFields],
   },
@@ -165,36 +165,52 @@ export const templateDefinitions: TemplateDefinition[] = [
       },
     ],
   },
-  // {
-  //   id: 'multi-device-grid',
-  //   name: 'Multi Device Grid',
-  //   categoryId: 2,
-  //   fields: [
-  //     ...commonFields,
-  //     {
-  //       name: 'imageSecondary',
-  //       label: 'Image Secondary',
-  //       description: 'This is the secondary image of the template',
-  //       type: 'image',
-  //     },
-  //     {
-  //       name: 'imageTertiary',
-  //       label: 'Image Tertiary',
-  //       description: 'This is the tertiary image of the template',
-  //       type: 'image',
-  //     }
-  //   ],
-  // },
-  // {
-  //   id: 'single-device-hero',
-  //   name: 'Single Device Hero',
-  //   categoryId: 2,
-  //   fields: [],
-  // },
-  // {
-  //   id: 'triple-device-showcase',
-  //   name: 'Triple Device Showcase',
-  //   categoryId: 2,
-  //   fields: [],
-  // },
+  {
+    id: 'multi-device-grid',
+    name: 'Multi Device Grid',
+    categoryId: 2,
+    fields: [
+      ...commonFields,
+      {
+        name: 'imageSecondary',
+        label: 'Image Secondary',
+        description: 'This is the secondary image of the template',
+        type: 'image',
+      },
+      {
+        name: 'imageTertiary',
+        label: 'Image Tertiary',
+        description: 'This is the tertiary image of the template',
+        type: 'image',
+      }
+    ],
+  },
+  {
+    id: 'single-device-hero',
+    name: 'Single Device Hero',
+    categoryId: 2,
+    fields: [
+      ...commonFields,
+    ],
+  },
+  {
+    id: 'triple-device-showcase',
+    name: 'Triple Device Showcase',
+    categoryId: 2,
+    fields: [
+      ...commonFields,
+      {
+        name: 'imageSecondary',
+        label: 'Image Secondary',
+        description: 'This is the secondary image of the template',
+        type: 'image',
+      },
+      {
+        name: 'imageTertiary',
+        label: 'Image Tertiary',
+        description: 'This is the tertiary image of the template',
+        type: 'image',
+      },
+    ],
+  },
 ];

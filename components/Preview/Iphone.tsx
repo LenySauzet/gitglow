@@ -26,9 +26,12 @@ const THEME = {
   },
 } as const;
 
+const VIEWBOX_WIDTH = 433;
+const VIEWBOX_HEIGHT = 882;
+
 export default function Iphone({
-  width = 433,
-  height = 882,
+  width = VIEWBOX_WIDTH,
+  height,
   src,
   videoSrc,
   ...props
@@ -38,13 +41,17 @@ export default function Iphone({
   const { lightMode } = useCover();
   const colors = lightMode ? THEME.light : THEME.dark;
 
+  // Hauteur proportionnelle à la largeur pour éviter les gaps (la boîte SVG = le visuel)
+  const resolvedHeight =
+    height ?? Math.round((width * VIEWBOX_HEIGHT) / VIEWBOX_WIDTH);
+
   return (
     <svg
       aria-label="iPhone 15 Pro"
       fill="none"
-      height={height}
+      height={resolvedHeight}
       role="img"
-      viewBox="0 0 433 882"
+      viewBox={`0 0 ${VIEWBOX_WIDTH} ${VIEWBOX_HEIGHT}`}
       width={width}
       xmlns="http://www.w3.org/2000/svg"
       {...(props as SVGProps<SVGSVGElement>)}
