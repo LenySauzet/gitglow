@@ -12,7 +12,7 @@ import {
 } from '@/components/Settings';
 import type { TemplateDefinition } from '@/data/template-definitions';
 import { templateDefinitions } from '@/data/template-definitions';
-import { AppWindowMac, LucideIcon, Smartphone } from 'lucide-react';
+import { AppWindowMac, LucideIcon, Package, Smartphone } from 'lucide-react';
 import React from 'react';
 
 export type {
@@ -48,6 +48,11 @@ export const categories: Category[] = [
     name: 'Mobile',
     icon: Smartphone,
   },
+  // {
+  //   id: 3,
+  //   name: 'Package',
+  //   icon: Package,
+  // },
 ];
 
 const COMPONENT_MAP: Record<string, React.ComponentType> = {

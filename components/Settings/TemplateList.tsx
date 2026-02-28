@@ -11,7 +11,7 @@ const TemplateList = () => {
 
   const handleTemplateClick = (templateId: string) => {
     setTemplate(templateId);
-    setShowSettings(true);
+    // setShowSettings(true);
   };
   return (
     <div className="flex flex-col gap-2 mt-4 h-full">
